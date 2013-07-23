@@ -1,0 +1,139 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"set 行号
+set nu
+"文本编辑设置 
+set sw=4 "自动缩进尺寸为4个空格 
+set ts=4 "Tab宽度为4个字符 
+set et "编辑时将所有Tab替换为空格 
+
+"断行设置 
+set lbr "不在单词中间断行 
+set fo+=mB "打开断行模块对亚洲语言支持 
+
+"C/C++编码设置 
+set sm "显示括号配对 
+set cin "打开C/C++风格的自动缩进 
+set cino=:0g0t0(sus "设定C/C++风格自动缩进的选项 
+set ai "打开普通文件类型的自动缩进 
+
+"其他设置 
+set selectmode= "不使用 selectmode 
+set mousemodel=popup "当右键单击窗口的时候，弹出快捷菜单 
+set keymodel= "不使用“Shift+方向键”选择文本 
+set selection=inclusive "指定在选择文本时，光标所在位置也属于被选中的范围 
+
+"设置折行、水平滚动条、配色方案 
+if (has("gui_running")) 
+" 图形界面下的设置 
+    set guioptions+=b 
+    colo desert 
+    set wrap 
+else 
+" 字符界面下的设置 
+    set wrap 
+    colo ron 
+endif 
+
+"设置fold
+set foldmethod=indent
+"alias
+nnoremap <space> za
+
+"============================================================================= 
+" Platform dependent settings 
+"============================================================================= 
+if (has("win32")) 
+    "------------------------------------------------------------------------- 
+    " Win32 
+    "------------------------------------------------------------------------- 
+    if (has("gui_running")) 
+        set guifont=Consolas:h12:cANSI 
+        set guifontwide=NSimSun:h10:cGB2312 
+    endif 
+else 
+    if (has("gui_running")) 
+        set guifont=Bitstream\ Vera\ Sans\ Mono\ 9 
+    endif 
+endif 
+
+"设置F3来开关Taglist窗口 
+map <F3> :TlistToggle<cr> 
+
+"设置常用工程的tags 
+set tags=
+
+"编译运行函数
+func Compile()
+exec "w"
+"C程序
+if &filetype == 'c'
+exec "!gcc -Wl,-enable-auto-import % -g -o %<.exe"
+"c++程序
+elseif &filetype == 'cpp'
+exec "!g++ -Wl,-enable-auto-import % -g -o %<.exe"
+endif
+endfunc
+"结束定义CompileRun
+"定义Run函数
+func Run()
+if &filetype == 'c' || &filetype == 'cpp'
+exec "!%<.exe"
+endif
+endfunc
+"结束定义Run
+
+"定义Debug函数，用来调试程序
+func Debug()
+exec "w"
+"C程序
+if &filetype == 'c'
+exec "!gcc % -g -o %<.exe"
+exec "!gdb %<.exe"
+elseif &filetype == 'cpp'
+exec "!g++ % -g -o %<.exe"
+exec "!gdb %<.exe"
+endif
+endfunc
+"结束定义Debug
+
+"设置编译的快捷键
+nnoremap <C-F5> :call Compile()
+nnoremap <F5>   :call Run()
+nnoremap <F9>   :call Debug()
+
+"python支持
+"set filetype=python
+"au BufNewFile,BufRead *.py,*.pyw setf python
+
+"无备份
+set nobackup
+
