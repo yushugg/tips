@@ -137,3 +137,6 @@ nnoremap <F9>   :call Debug()
 "ÎÞ±¸·Ý
 set nobackup
 
+"python pydiction
+filetype plugin on
+let g:pydiction_location='F:\Vim\complete-dict'
