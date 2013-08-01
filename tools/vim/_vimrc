@@ -89,7 +89,8 @@ endif
 map <F3> :TlistToggle<cr> 
 
 "设置常用工程的tags 
-set tags=
+set tags=tags;
+set autochdir
 
 "编译运行函数
 func Compile()
