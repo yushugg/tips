@@ -47,3 +47,17 @@ C的casting，float fValue = (float)nvalue1 / nValue2;
 C++保留的C的casting, float fValue = float(nValue1) / nValue2; // 更像函数的调用
 C++新的casting的operator,告知编译器做的是强制的显示cast: static_cast,只会做标准的cast，而不做其它的
 eg. float fValue = static_cast<float>(nValue1) / nValue2;
+
+10. enum和switch语句，只能适用于整型的变量
+switch的case里必须是constant的
+
+11. random numbers:
+#include <cstdlib> // for srand() and rand()
+srand() sets the initial seed value. srand() should only be called once.
+设置初始值，只能使用一次,如，设置initial seed value为5323, srand(5323)
+rand() generates the next random number in the sequence (starting from the seed set by srand()).
+产生以后的每个number,调用rand()
+范围为0到RAND_MAX，常为32767
+产生nLow到nHigh的随机数：rand()%(nHigh-nLow+1) + nLow;
+#include <ctime> // for time()
+srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970
