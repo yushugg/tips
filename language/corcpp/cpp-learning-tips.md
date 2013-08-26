@@ -61,3 +61,38 @@ rand() generates the next random number in the sequence (starting from the seed 
 产生nLow到nHigh的随机数：rand()%(nHigh-nLow+1) + nLow;
 #include <ctime> // for time()
 srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970
+
+12. array在声明时，int anArray[size]，size必须是constant：literal constant, define, const, enum
+即必须在compile time就知道size的大小
+在使用时，index可以是一个non-constant or constant的整数
+int nSize = 5;
+int anArray[nSize]; // Not OK! nSize is not a constant
+
+13. strncpy(szDest, szSource, number)
+    strncat
+    strncmp
+    ----------------------------
+    char szBuffer[255];
+    cin.getline(szBuffer, 255);
+    std::string strName;
+    getline(cin, strName);
+
+14. delete删除的是指针指向的内存，指针还是存在
+Get in the habit of assigning your pointers to 0 both when they are declared (unless assigned to another address), and after they are deleted. It will save you a lot of grief.
+int *pnValue = new int;
+delete pnValue;
+pnValue = 0; // 指针还是存在，只是内存已被删除
+int *const pnPtr = &nValue; // 指针pnPtr是const，只能指向nValue，不可改变,不能指向其他
+const int *pnPtr = &nValue; // 指向的nValue不可改变, 即，通过pnPtr访问的nValue是const的
+====================
+const int nValue;
+const int *const pnPtr = &nValue;
+所有的都是const
+====================
+int nValue = 5;
+const int &rnRef = nValue; // 通过rnRef无法改变nValue
+
+15. Rule: Always pass by const reference unless you need to change the value of the argument
+大多数情况使用pass by reference，而不用pass by pointer，除非要动态分配内存
+by reference只针对变量有用，对于常量无法使用
+return by reference只能针对reference，不能return函数内部的局部变量
