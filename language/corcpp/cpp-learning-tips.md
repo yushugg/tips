@@ -60,7 +60,7 @@ rand() generates the next random number in the sequence (starting from the seed 
 范围为0到RAND_MAX，常为32767
 产生nLow到nHigh的随机数：rand()%(nHigh-nLow+1) + nLow;
 #include <ctime> // for time()
-srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970
+srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970; 0=NULL
 
 12. array在声明时，int anArray[size]，size必须是constant：literal constant, define, const, enum
 即必须在compile time就知道size的大小
@@ -96,3 +96,75 @@ const int &rnRef = nValue; // 通过rnRef无法改变nValue
 大多数情况使用pass by reference，而不用pass by pointer，除非要动态分配内存
 by reference只针对变量有用，对于常量无法使用
 return by reference只能针对reference，不能return函数内部的局部变量
+=========================================================================================
+对于参数：如果literal，则不可&，可以考虑const，如果是大的对象什么的，则&(gen:const Type &name)
+对于返回值：不要返回对于局部变量的引用，因为局部变量会destroy，除非返回值为输入的引用，否则不用返回引用,返回值如果const，则只能调用返回值的const成员函数
+对于函数：整个函数，只有是成员函数的时候才可以const，friend不是成员函数
+gen:    MyClass[&] func(const Class1 &m1, const Class2 &m2)
+    如果返回值用到了&，则里面的参数m1和m2至少有一个是非const
+=========================================================================================
+
+16. Exceptions: Detecting assumption errors
+As it turns out, we can catch almost all assumptions that need to be checked in one of three locations:
+1. When a function has been called, the user may have passed the function parameters that are semantically meaningless.
+2. When a function returns, the return value may indicate that an error has occured.
+3. When program receives input (either from the user, or a file), the input may not be in the correct format.
+Consequently, the following rules should be used when programming defensively:
+1. At the top of each function, check to make sure any parameters have appropriate values.
+2. After a function is called, check it’s return value (if any), and any other error reporting mechanisms, to see if an error occured.
+3. Validate any user input to make sure it meets the expected formatting or range criteria.
+即三处检测：函数的参数传递、函数的返回值、用户的输入
+
+17. Command line arguments
+int main(int argc, char* argv[]);
+int main(int argc, char** argv);
+argc: arg count     argv: arg variable
+都会把程序名算进去
+
+18. class
+无static都是可以跨文件调用的
+默认为private,只可以被类里的函数调用
+public,可以被类外面的函数调用
+Provide a default constructor is almost always a good idea.
+
+19. class const function
+const class objects can only call const member functions
+const member function:
+    int getValue() const
+    {
+        return m_nValue;
+    }
+Any const member function that attempts to change a member variable or call a non-const member function will cause a compiler error
+const member function只能调用const member，而且不能改变成员变量
+
+20. class static function
+1) 无this指针，不属于哪个对象，属于类
+2) 只能访问static member变量，非静态的不可访问
+
+21. friend function and operator overloading
+friend function不属于成员函数
+在一个类中声明一个friend function，说明这个类对于此function开放，此func可以访问该类的private变量
+同样，声明一个friend class，代表此类向该friendclass开放，friend class可以访问该类的private
+The best way to overload the operator is via friend function
+重载++和--：
+Digit& operator++(); // prefix
+Digit& operator--(); // prefix
+Digit operator++(int); // postfix
+Digit operator--(int); // postfix
+使用int来标注是后缀的,显然，prefix的效率更高
+The subscript operator[] is one of the operators that must be overloaded as a member function注意返回值必须是引用，否则无法接着用.来调用其成员函数，因为[]返回了非原对象
+
+22. copy constructor
+******当第一次赋值时，用的是copy constructor，当覆盖的时候用的是operator=*******
+There are three general cases where the copy constructor is called instead of the assignment operator:
+a. When instantiating one object and initializing it with values from another object (as in the example above).
+b. When passing an object by value.
+c. When an object is returned from a function by value.
+值传递参数和return都是使用copy constructor
+C++会有默认的copy constructor和赋值=运算，但是是浅复制,即直接使用=号赋值各个变量的值，不会分配内存什么的
+所以最好自己写copy constructor，如果涉及到内存分配什么的，如char×的问题
+Summary:
+**The default copy constructor and default assignment operators do shallow copies, which is fine for classes that contain no dynamically allocated variables.
+**Classes with dynamically allocated variables need to have a copy constructor and assignment operator that do a deep copy.
+**The assignment operator is usually implemented using the same code as the copy constructor, but it checks for self-assignment, returns *this, and deallocates any previously allocated memory before deep copying.
+**If you don’t want a class to be copyable, use a private copy constructor and assignment operator prototype in the class header.
