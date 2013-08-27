@@ -160,7 +160,8 @@ There are three general cases where the copy constructor is called instead of th
 a. When instantiating one object and initializing it with values from another object (as in the example above).
 b. When passing an object by value.
 c. When an object is returned from a function by value.
-值传递参数和return都是使用copy constructor
+!!!值传递参数和return都是使用copy constructor
+!!!引用传递和指针传递不会用到copy constructor, 是object本身
 C++会有默认的copy constructor和赋值=运算，但是是浅复制,即直接使用=号赋值各个变量的值，不会分配内存什么的
 所以最好自己写copy constructor，如果涉及到内存分配什么的，如char×的问题
 Summary:
