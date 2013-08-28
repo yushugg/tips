@@ -205,3 +205,10 @@ cin.gcount()// 显示读取了多少字符
 读取std::string使用的是getline, 头文件为<string>
 string strBuf;
 getline(cin, strBuf);
+===========================================================
+cout.setf()和cout.unsetf()提供修改cout的flags
+istringstream, ostringstream, stringstream类似isotream
+清除ostream里面的东西
+os.str(""); // erase the buffer
+os.clear(); // reset error flags
+
