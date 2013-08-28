@@ -12,6 +12,7 @@ cout << "This is a really, really, really, really, really, really, really, "
         << "really long line" << endl;
 This makes it more obvious from looking at the first line that the next line is going to be a continuation.
 OPERAND first!!!
+stream朝着尖的的方向流动
 
 4. You can undefine a previously defined value by using the #undef preprocessor directive.
 Consider the following snippet:
@@ -123,8 +124,16 @@ argc: arg count     argv: arg variable
 
 18. class
 无static都是可以跨文件调用的
-默认为private,只可以被类里的函数调用
-public,可以被类外面的函数调用
+默认为private,只可以被类里的函数调用,且不能被继承的类调用
+public,可以被类外面的所有函数调用
+protected，只可以被类里面的函数调用，也可以被继承的类调用
+===========================================================
+The access specifiers only affect whether outsiders and derived classes can access those members.
+关于继承(所有的影响指的是，对于外面的通过派生类来访问时的改变，派生类内部的的访问基类时的属性不会改变)：
+默认为private继承，所有的成员变成private
+public继承，所有的成员保持原来的acess specification
+protected继承，private仍是private，但是public和protected变成protected
+===========================================================
 Provide a default constructor is almost always a good idea.
 
 19. class const function
@@ -169,3 +178,15 @@ Summary:
 **Classes with dynamically allocated variables need to have a copy constructor and assignment operator that do a deep copy.
 **The assignment operator is usually implemented using the same code as the copy constructor, but it checks for self-assignment, returns *this, and deallocates any previously allocated memory before deep copying.
 **If you don’t want a class to be copyable, use a private copy constructor and assignment operator prototype in the class header.
+
+23. virtual function
+虚函数用在使得基类的指针或者引用可以直接调用访问继承类上
+A virtual function is a special type of function that resolves to the most-derived version of the function with the same signature. 
+You should always make your destructors virtual if you’re dealing with inheritance.
+当继承时，所有的析构函数都必须是virtual
+pure virtual function:
+virtual int getValue() = 0;
+任何有一个或者更多的虚函数的类是一个抽象基类(abstract base class),抽象基类不可以实例化
+Interface class:
+一个没有成员变量，有且只有虚函数的类
+多继承不可以有，但是多继承interface可以有
