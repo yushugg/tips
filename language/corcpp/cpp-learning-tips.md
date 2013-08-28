@@ -190,3 +190,18 @@ virtual int getValue() = 0;
 Interface class:
 一个没有成员变量，有且只有虚函数的类
 多继承不可以有，但是多继承interface可以有
+
+24. iostream
+cin会跳过whitespace(blanks, tabs, newlines)
+cin.get(ch)// 不会跳过whitespace，一个字符一个字符的读取
+cin.get(strBuf, 11)// 限制最大的size，含\0，实际长度为10，读取一个string，不跳过whitespace
+cin.get不会读取\n,即读取了一次回车之后再次调用get时，由于前面的没有读取\n，\n成为了新的一次get的要读的内容，又是终止符，所以直接停止，且读的东西为空的，再次使用get时才会从屏幕中读取数据
+***********************************************************
+读取\n不代表会把\n作为最后一个字符,但是算读取的时候算长度+1
+***********************************************************
+cin.getline(strBuf, 11)用法同get，但是会读取\n
+cin.gcount()// 显示读取了多少字符
+===========================================================
+读取std::string使用的是getline, 头文件为<string>
+string strBuf;
+getline(cin, strBuf);
