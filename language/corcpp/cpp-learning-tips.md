@@ -186,9 +186,9 @@ You should always make your destructors virtual if you’re dealing with inherit
 当继承时，所有的析构函数都必须是virtual
 pure virtual function:
 virtual int getValue() = 0;
-任何有一个或者更多的虚函数的类是一个抽象基类(abstract base class),抽象基类不可以实例化
+任何有一个或者更多的纯虚函数的类是一个抽象基类(abstract base class),抽象基类不可以实例化
 Interface class:
-一个没有成员变量，有且只有虚函数的类
+一个没有成员变量，有且只有纯虚函数的类
 多继承不可以有，但是多继承interface可以有
 
 24. iostream
