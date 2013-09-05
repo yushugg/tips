@@ -1,5 +1,5 @@
 1. l-values and r-values:
-In C++, variables are also known as l-values (pronounced ell-values). An l-value is a value that has an address (in memory). Since all variables have addresses, all variables are l-values. They were originally named l-values because they are the only values that can be on the left side of an assignment statement. When we do an assignment, the left hand side of the assignment operator must be an l-value. Consequently, a statement like 5 = 6; will cause a compile error, because 5 is not an l-value. The value of 5 has no memory, and thus nothing can be assigned to it. 5 means 5, and it’s value can not be reassigned. When an l-value has a value assigned to it, the current value is overwritten.
+In C++, variables are also known as l-values (pronounced ell-values). An l-value is a value that has an address (in memory). Since all variables have addresses, all variables are l-values. They were originally named l-values because they are the only values that can be on the left side of an assignment statement. When we do an assignment, the left hand side of the assignment operator must be an l-value. Consequently, a statement like 5 = 6; will cause a compile error, because 5 is not an l-value. The value of 5 has no memory, and thus nothing can be assigned to it. 5 means 5, and its value can not be reassigned. When an l-value has a value assigned to it, the current value is overwritten.
 The opposite of l-values are r-values. An r-value refers to any value that can be assigned to an l-value. r-values are always evaluated to produce a single value. Examples of r-values are single numbers (such as 5, which evaluates to 5), variables (such as x, which evaluates to whatever number was last assigned to it), or expressions (such as 2+x, which evaluates to the last value of x plus 2).
 
 2. Rule: Always assign values to your variables when you declare them.
@@ -46,8 +46,16 @@ file scope: 关键字为在global变量处加上static, 不可以使用extern，
 9. Casting
 C的casting，float fValue = (float)nvalue1 / nValue2;
 C++保留的C的casting, float fValue = float(nValue1) / nValue2; // 更像函数的调用
-C++新的casting的operator,告知编译器做的是强制的显示cast: static_cast,只会做标准的cast，而不做其它的
+C++新的casting的operator,告知编译器做的是强制的显示cast: 编译时static_cast,只会做标准的cast，而不做其它的
+运行时：dynamic_cast
 eg. float fValue = static_cast<float>(nValue1) / nValue2;
+====================================================
+四种cast操作：
+reinterpret_cast
+static_cast
+dynamic_cast
+const_cast
+====================================================
 
 10. enum和switch语句，只能适用于整型的变量
 switch的case里必须是constant的
@@ -98,7 +106,7 @@ const int &rnRef = nValue; // 通过rnRef无法改变nValue
 by reference只针对变量有用，对于常量无法使用
 return by reference只能针对reference，不能return函数内部的局部变量
 =========================================================================================
-对于参数：如果literal，则不可&，可以考虑const，如果是大的对象什么的，则&(gen:const Type &name)
+对于参数：如果literal，则不可&，可以考虑const，如果是大的对象什么的，则&,(eg.const Type &name)
 对于返回值：不要返回对于局部变量的引用，因为局部变量会destroy，除非返回值为输入的引用，否则不用返回引用,返回值如果const，则只能调用返回值的const成员函数
 对于函数：整个函数，只有是成员函数的时候才可以const，friend不是成员函数
 gen:    MyClass[&] func(const Class1 &m1, const Class2 &m2)
@@ -211,4 +219,6 @@ istringstream, ostringstream, stringstream类似isotream
 清除ostream里面的东西
 os.str(""); // erase the buffer
 os.clear(); // reset error flags
+
+25. C++新特性
 
