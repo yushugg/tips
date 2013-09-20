@@ -5,3 +5,5 @@ yum upgrade是超级更新大法，只要是系统里的东西有更新的全部
 
 fedora 源的修改：
 在目录/etc/yum.repos.d下，为所有的仓库，要换源可以下载仓库换掉对应的该目录下的仓库
+更新运行：sudo yum clean all 和 sudo yum makecache
+一般源的右边的help中会有教你安装源的方法
