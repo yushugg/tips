@@ -2,7 +2,7 @@
     term1 term2; both and
     term1 OR term2 term1 | term2; either or
     "term"; stop words will be considered
-    -term; without term
+    -term; without term PAY!!!!:'-'must in front of term without any space
     ~term; with term or one of its synonyms
     number1..number2; with a number in the specified range
     *; one or more words
