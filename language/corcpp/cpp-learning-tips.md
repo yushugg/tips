@@ -30,7 +30,7 @@ The last line of the program causes a compile error because MY_NAME has been und
 There are only three operators in C++ that is a word instead of a symbol:
 sizeof: return data type's bytes
 new
-delete'
+delete
 
 7. Float number precision
 float和double，cout显示时都只有6 digits，不包括小数点，小数点前后总共6位
@@ -203,7 +203,7 @@ Interface class:
 cin会跳过whitespace(blanks, tabs, newlines)
 cin.get(ch)// 不会跳过whitespace，一个字符一个字符的读取
 cin.get(strBuf, 11)// 限制最大的size，含\0，实际长度为10，读取一个string，不跳过whitespace
-cin.get不会读取\n,即读取了一次回车之后再次调用get时，由于前面的没有读取\n，\n成为了新的一次get的要读的内容，又是终止符，所以直接停止，且读的东西为空的，再次使用get时才会从屏幕中读取数据
+cin.get不会读取\n,即吸收\n,即读取了一次回车之后再次调用get时，由于前面的没有读取\n，\n成为了新的一次get的要读的内容，又是终止符，所以直接停止，且读的东西为空的，再次使用get时才会从屏幕中读取数据
 ***********************************************************
 读取\n不代表会把\n作为最后一个字符,但是算读取的时候算长度+1
 ***********************************************************
@@ -219,6 +219,17 @@ istringstream, ostringstream, stringstream类似isotream
 清除ostream里面的东西
 os.str(""); // erase the buffer
 os.clear(); // reset error flags
+===========================================================
+对于scanf和cin读取一个字符c，如果前面先读取一个int或者string之类的东西，然后调用scanf或者cin读取字符c。
+scanf会直接跳过输入环节，而把上一个的\n作为输入，即吸收了\n
+而cin会一直等待你的输入，即不会吸收\n。
+但是cin.get和scanf是一样的。
+**********************
+Summary:
+cin.get读取char或者string时，都会吸收\n。
+scanf, getchar读取char时，会吸收\n
+而cin本身不会吸收\n
+===========================================================
 
 25. C++新特性
 
