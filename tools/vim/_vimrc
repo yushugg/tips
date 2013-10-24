@@ -121,6 +121,8 @@ Bundle 'taglist.vim'
 Bundle 'winmanager'
 Bundle 'OmniCppComplete'
 Bundle 'SuperTab'
+Bundle 'pythoncomplete'
+Bundle 'Pydiction'
 " Bundle 'vimwiki'
 
 " non github reposo
@@ -179,6 +181,15 @@ let g:SuperTabDefaultCompletionType="<C-X><C-O>"
 "**************************************************
 " STLTags
 set tags+=F:\Vim\vimfiles\stl_tags
+"**************************************************
+
+"**************************************************
+" pythoncomplete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+"**************************************************
+
+"**************************************************
+let g:pydiction_location='C:\Users\Yushu\.vim\bundle\Pydiction\complete-dict'
 "**************************************************
 
 "*****************************************************
