@@ -3,12 +3,22 @@
     然后，在vimrc中修改一些配置重启即可使用
 
 Excuberant ctags:
-    windows下，将ctags.exe复制到vim73文件夹下，和vim.exe在同一文件夹下，然后要生成tags文件，在cmd下，运行ctags -R即可
+    先下载安装ctags，然后设置环境变量，或者将ctags复制到vim73文件夹下，方便直接在终端运行ctags
+    对于每个源码工程，若要生成tags文件，在cmd下，在根目录处，运行ctags -R即可
     添加vimrc：
         set tags=tags;
         set autochdir
     第一个命令让vim在当前目录找tags文件，没找到，则递归父目录
     第二个命令让vim修改当前目录。分号必不可少
+    查找用<C-]>
+    返回用<C-t>or<C-o>
+    局部变量gd
+
+Vundle:
+    下载Vundle，放在$HOME/.vim/bundle/vundle
+    设置好git
+    配置vimrc
+    以后安装插件，只要:BundleSearch，然后Bundle 插件名，再配置vimrc即可
 
 taglist:
     一般安装方法即可
