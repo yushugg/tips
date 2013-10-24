@@ -123,7 +123,8 @@ Bundle 'OmniCppComplete'
 Bundle 'SuperTab'
 Bundle 'pythoncomplete'
 Bundle 'Pydiction'
-Bundle 'bufexplorer.zip'
+Bundle 'minibufexplorerpp'
+"Bundle 'pydoc.vim'
 " Bundle 'vimwiki'
 
 " non github reposo
@@ -196,7 +197,15 @@ let g:pydiction_location='C:\Users\Dell\.vim\bundle\Pydiction\complete-dict'
 
 "**************************************************
 " bufexplorer.zip
-nmap <F6> :BufExplorerHorizontalSplit<cr>
+"nmap <F6> :BufExplorerHorizontalSplit<cr>
+"**************************************************
+
+"**************************************************
+" miniBufExpl
+let g:miniBufExplMapWindowNavVim = 1 
+let g:miniBufExplMapWindowNavArrows = 1 
+let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExplModSelTarget = 1 
 "**************************************************
 
 "*****************************************************
