@@ -123,6 +123,7 @@ Bundle 'OmniCppComplete'
 Bundle 'SuperTab'
 Bundle 'pythoncomplete'
 Bundle 'Pydiction'
+Bundle 'bufexplorer.zip'
 " Bundle 'vimwiki'
 
 " non github reposo
@@ -189,7 +190,13 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 "**************************************************
 
 "**************************************************
-let g:pydiction_location='C:\Users\Yushu\.vim\bundle\Pydiction\complete-dict'
+" Pydiction
+let g:pydiction_location='C:\Users\Dell\.vim\bundle\Pydiction\complete-dict'
+"**************************************************
+
+"**************************************************
+" bufexplorer.zip
+nmap <F6> :BufExplorerHorizontalSplit<cr>
 "**************************************************
 
 "*****************************************************
@@ -267,7 +274,3 @@ nnoremap <F9>   :call Debug()
 "python÷ß≥÷
 "set filetype=python
 "au BufNewFile,BufRead *.py,*.pyw setf python
-
-"python pydiction
-"filetype plugin on
-"let g:pydiction_location='F:\Vim\pydiction-1.2.1\complete-dict'
