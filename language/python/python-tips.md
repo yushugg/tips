@@ -10,6 +10,11 @@ re
     re.compile(pattern)
     之后的调用上述函数，参数省去pattern，直接用string、flag即可
 
+    **********
+    re匹配默认是贪婪的，即尽可能匹配更多，直到下一个字符处，如s = '<html><head><title>Title</title>'，re.match('<.*>', s)将匹配整个串，而不是单个'<html>'
+    改成非贪婪的，则在后面加个问号即可，如re.match('<.*?>', s)，匹配出单个'<html>'
+    **********
+
     \b -- 非字符的空串，放在一个单词的开始或者结尾，如r'\bfoo\b'matches'foo','foo.','(foo)', but not 'foo3','foobar'
     \B -- 与\b正好相反，如r'py\B'matches'python','py3', but not 'py','py.','py!'
     \d -- 数字
@@ -85,3 +90,15 @@ XML
     文本格式的打开
     entry = json.load(f)
     文本格式的打开
+
+httplib2
+    对于表单、post
+    表单的提交要提交到form里面的action处
+    先提交表单，然后获得cookie，之后的访问直接使用该cookie即可
+    cookie，set-cookie会有多行，而合并的时候会以逗号分隔合并，而真正使用的时候要将逗号换成分号
+
+    http库不支持缓存，httplib2支持
+    http库不支持最后修改时间检查，httplib2支持
+    http库不支持ETag，httplib2支持
+    http库不支持压缩，httplib2支持
+    httplib2处理了永久重定向，不仅会告诉发生了永久重定向，而且会在本地记录这些重定向，并且在发送请求前自动重写为重定向后的url
