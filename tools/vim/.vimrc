@@ -84,7 +84,16 @@ set keymodel= "不使用“Shift+方向键”选择文本
 set selection=inclusive "指定在选择文本时，光标所在位置也属于被选中的范围 
 
 " 把jj当做Esc使用
-imap jj <Esc>
+inoremap jj <Esc>
+
+"设置leader
+let mapleader = ","
+
+"editing vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+"source vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 "无备份
 set nobackup
@@ -126,7 +135,8 @@ Bundle 'OmniCppComplete'
 Bundle 'SuperTab'
 Bundle 'pythoncomplete'
 Bundle 'Pydiction'
-Bundle 'minibufexplorerpp'
+"Bundle 'minibufexplorerpp'
+Bundle 'EasyMotion'
 "Bundle 'pydoc.vim'
 " Bundle 'vimwiki'
 
@@ -205,11 +215,16 @@ let g:pydiction_location='~/.vim/bundle/Pydiction/complete-dict'
 
 "**************************************************
 " miniBufExpl
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavArrows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
-let g:miniBufExplModSelTarget = 1 
+"let g:miniBufExplMapWindowNavVim = 1 
+"let g:miniBufExplMapWindowNavArrows = 1 
+"let g:miniBufExplMapCTabSwitchBufs = 1 
+"let g:miniBufExplModSelTarget = 1 
 "**************************************************
+
+"**************************************************
+" Bundle 'EasyMotion'
+let g:EasyMotion_leader_key = "<leader>"
+"*****************************************************
 
 "*****************************************************
 "设置折行、水平滚动条、配色方案 
