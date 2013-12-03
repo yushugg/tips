@@ -1,3 +1,11 @@
+解决gvim错误：Gtk-WARNING **: Invalid input string
+同时包括gvim的菜单栏显示异常一起解决
+这个错误是由语言的设置不正确引起的，解决方法很简单：
+
+1. 打开 cd /usr/share/vim/vim73/lang这个存放语言信息的目录。
+
+2. 建立一个链接 sudo ln -s menu_zh_cn.utf-8.vim menu_zh_cn.utf8.vim，OK，问题解决。
+
 插件安装：
     一般直接覆盖到vimfiles中
     然后，在vimrc中修改一些配置重启即可使用
