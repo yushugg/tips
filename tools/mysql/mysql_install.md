@@ -1,5 +1,5 @@
 Step:
-1. yum install mysql mysql-server
+1. yum install mysql mysql-server mysql-devel(!!!)
 2. start MySQL server and autostart MySQL on boot: 
     systemctl start mysqld.service ## use restart if updated
     systemctl enable mysqld.service
