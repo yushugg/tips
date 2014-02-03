@@ -1,3 +1,15 @@
+MVC设计模式：
+    分成4个python文件--models.py(database tables)
+                       views.py(business logic)一个url对应的函数内容，处理Request
+                       urls.py(URL configuration)
+                       xx.html(template)
+
+创建project：
+    django-admin.py startproject mysite
+
+启动服务器：
+    python manage.py runserver [端口号]
+
 Django模板系统的基本规则：
     1. 写模板，创建Template对象
     2. 创建Context对象，一个字典为参数
