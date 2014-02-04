@@ -41,3 +41,10 @@ html5
 Your browser does not support the video tag.
 </video>
 拖放：draggable="true"
+
+http状态码
+1xx 消息
+2xx 成功
+3xx 重定向
+4xx 请求错误
+5xx 服务器错误
