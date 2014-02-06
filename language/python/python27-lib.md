@@ -50,3 +50,17 @@ c.fetchone()
 c.fetchmany([size=cursor.arraysize])
 conn.commit()
 conn.close()
+
+
+csv
+functions:
+    csv.reader(csvfile, dialect='excel', **fmtparams)
+        返回一个read object，csvfile是file object(要以rb方式读取)或者list objects
+    with open('eggs.csv', 'rb') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            print ', '.join(row)
+
+    csv.writer(csvfile, dialect='excel', **fmtparams)
+    csvwriter.writerow(row)
+    csvwriter.writerows(rows)
