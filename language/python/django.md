@@ -118,3 +118,32 @@ Model：
 
     删除：
         p.delete()
+
+表单：
+    !!!即使客户端有js可以验证登陆，服务器端也要重新验证一次，因为用户可能会关闭js
+    !!!每次都应该给成功的POST请求做重定向，防止刷新后重复发送数据
+    HttpRequest对象:
+        request.path--除域名以外的请求路径，以正斜杠开头--/hello/
+        request.get_host()--主机名--127.0.0.1:8000 or www.example.com
+        request.get_full_path()--请求路径，可能包含查询字符串--/hello/?print=true
+        request.is_secure()--如果https则True，否则False
+
+    request.META，一个python字典，包含所有本次http请求的header信息
+        HTTP_REFERER--进站前链接网页，如果有的话
+        HTTP_USER_AGENT--用户浏览器的user-agent字符串，如果有的话
+        REMOTE_ADDR--客户端IP
+
+    request.GET, request.POST类字典对象：
+        q = request.GET['q']
+        request.POST.get('name', '')
+
+    Form对象
+        from django import forms
+        class ContactForm(forms.Form):
+            subject = forms.CharField()
+            email = forms.EmailField(required=False)
+            message = forms.CharField()
+        判断数据是否合法--f.is_valid()
+        error信息--f.errors--dict
+        f.cleaned_data--转换成相应的python类型数据，叫做清理数据，清理成Unicode对象，日期型会转成datetime.date型对象
+        可以在form对象中添加自定义的验证方法，如def clean_message(self)
