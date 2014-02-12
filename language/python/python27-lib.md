@@ -18,6 +18,7 @@ class:
         microsecond
         tzinfo
     datetime.datetime--combination of a date and a time
+        属性为整型
         year
         month
         day

@@ -15,6 +15,47 @@ MVC设计模式：
 启动交互界面：
     python manage.py shell
 
+urls:
+    !!!匹配是从上到下的匹配，最上面的最先被匹配
+    函数对象方法：
+        urlpatterns = patterns('',
+            (r'^hello/$', hello or views.hello),
+        )
+        注意，要先import相关的东西，如import mysite.views
+        函数不要加引号
+    字符串方法：
+        urlpatterns = patterns('',
+            (r'^hello/$', 'mysite.views.hello'),
+        )
+        即完整的路径写出来，不需要import
+        路径要加上引号
+    公共前缀：
+        urlpatterns = patterns('mysite.views',
+            (r'^hello/$', 'hello'),
+            (r'^time/$', 'current_time'),
+        )
+        前缀写在tuple的第一个，是字符串，所以要加引号，不要多加点号
+        如果有过个视图前缀，可以给其他不相同的额外加到urlpatterns中
+        urlpatterns += patterns('weblog.views',
+            (r'^tag/(\w+)/$', 'tag'),
+        )
+        
+    命名正则表达式：
+        语法为(?P<name>pattern)，如
+        urlpatterns = patterns('',
+            (r'^articles/(?P<year>\d{4})/$', views.year_archive),
+        )
+        即由request带走的是带有名字的year=\d{4}，当有多个参数的时候，命名参数就可以很好的区分这些不同的参数
+        !!!尽管d{4}是匹配整数，但是由year传递的还是字符串
+
+    传递额外的参数到试图函数中（用来提高通用性）：
+        在每个匹配的第三个参数中增加一个列表，列表中可以为字符串或者任何对象
+        urlpatterns += patterns('weblog.views',
+            (r'^tag/(\w+)/$', 'tag', {'template_name': 'template1.html'}),
+        )
+        def tag(request, template_name):
+            return render_to_response(template_name, {'m_list': m_list})
+
 Django模板：
     {{ xx }} variable
     {% if xx %} template tag
@@ -122,6 +163,8 @@ Model：
 表单：
     !!!即使客户端有js可以验证登陆，服务器端也要重新验证一次，因为用户可能会关闭js
     !!!每次都应该给成功的POST请求做重定向，防止刷新后重复发送数据
+    GET--render_to_response('xx.html')
+    POST--HttpResponseRedirect('/somepage/')
     HttpRequest对象:
         request.path--除域名以外的请求路径，以正斜杠开头--/hello/
         request.get_host()--主机名--127.0.0.1:8000 or www.example.com
