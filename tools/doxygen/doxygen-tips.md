@@ -76,3 +76,11 @@ OUTPUT
 
 图形显示
 16. Configuration options related to the dot tool
+
+python说明：
+doxygen1.4.4及以后版本，不支持python doc注释方式中的特殊指令，即不能使用@
+但是使用##可以使用@
+python是以namespace的形式来说明每个文件的
+!!!
+且最开始要加上@package xxx才会有用
+!!!
