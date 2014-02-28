@@ -10,7 +10,7 @@ clone一个远程的仓库：
     git clone xxx.git [本地已存在的目录名]
 
 创建ssh key：
-    ssh -keygen -C "...@mail..." -t rsa，然后在profile中加入新的key
+    ssh-keygen -C "...@mail..." -t rsa，然后在profile中加入新的key
     测试连通性：ssh -T git@github.com
 
 branch and checkout:
