@@ -43,6 +43,14 @@ for q, a in zip(questions, answers)
 反之，解压：如果已有一个list或者dict，调用函数可以用*or**来解压此list或dict
 lambda x, y:x+y    冒号前面x, y为函数参数，冒号后面x+y为函数返回值
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+python对dict的key或者value排序：
+对key：
+sorted(dict.items(), key=lambda dict:dict[0])
+对value：
+sorted(dict.items(), key=lambda dict:dict[1])
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 Data Structures:
 list
     插入--list.append(x)
