@@ -9,6 +9,9 @@ MVC设计模式：
 创建project：
     django-admin.py startproject mysite
 
+创建app
+    python manage.py startapp one_app
+
 启动服务器：
     python manage.py runserver [端口号]
 
@@ -48,7 +51,7 @@ urls:
         即由request带走的是带有名字的year=\d{4}，当有多个参数的时候，命名参数就可以很好的区分这些不同的参数
         !!!尽管d{4}是匹配整数，但是由year传递的还是字符串
 
-    传递额外的参数到试图函数中（用来提高通用性）：
+    传递额外的参数到视图函数中（用来提高通用性）：
         在每个匹配的第三个参数中增加一个列表，列表中可以为字符串或者任何对象
         urlpatterns += patterns('weblog.views',
             (r'^tag/(\w+)/$', 'tag', {'template_name': 'template1.html'}),
