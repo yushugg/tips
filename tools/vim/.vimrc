@@ -55,12 +55,13 @@ endfunction
 " basic settings
 "set 行号 number
 set nu
+"set relativenumber
 "set line & column
-set lines=30
-set columns=80
+"set lines=30
+"set columns=80
 "文本编辑设置 
-set sw=4 "自动缩进尺寸为4个空格 shiftwidth 当前行交错时使用4个空格
-set ts=4 "Tab宽度为4个字符 tabstop
+set sw=2 "自动缩进尺寸为2个空格 shiftwidth 当前行交错时使用2个空格
+set ts=2 "Tab宽度为2个字符 tabstop
 set et "编辑时将所有Tab替换为空格 
 
 "断行设置 
@@ -98,13 +99,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 "无备份
 set nobackup
 "***********************************************************************
-
-"设置fold
-"set foldmethod=indent
-"alias
-"nnoremap <space> za
-
-"******************************************************************
 " Ctags settings
 "设置常用工程的tags 第一个命令让vim在当前目录下查找tags文件，没找到则递归父目录
 "第二个命令让vim修改当前目录。分号必不可少
@@ -113,46 +107,49 @@ set nobackup
 "局部变量gd
 set tags=tags;
 set autochdir
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "******************************************************************
 
 "***************************************************************
 " set Vundle
-set rtp+=$HOME/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-" original repos on github
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+
+call vundle#begin() " start plugins
+Plugin 'gmarik/Vundle.vim'
+
+" plugin on github repos
 " github上的用户写的插件，使用这种用户名+repo名称的方式
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'Lokaltog/vim-easymotion'
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Bundle 'tpope/vim-rails.git'
+" Plugin 'https://github.com/scrooloose/nerdtree.git'
+" Plugin 'tpope/vim-fugitive'
 
 " vim-scripts repos
 " vimscripts的repo使用下面的格式，直接是插件名称
-Bundle 'taglist.vim'
-Bundle 'winmanager'
-Bundle 'OmniCppComplete'
-Bundle 'SuperTab'
-Bundle 'pythoncomplete'
-Bundle 'Pydiction'
-"Bundle 'minibufexplorerpp'
-Bundle 'EasyMotion'
-"Bundle 'pydoc.vim'
-" Bundle 'vimwiki'
+Plugin 'taglist.vim'
+Plugin 'molokai'
+Plugin 'The-NERD-Commenter'
+Plugin 'The-NERD-tree'
+Plugin 'ctrlp.vim'
+Plugin 'OmniCppComplete'
+Plugin 'pythoncomplete'
 
 " non github reposo
 " 非github的插件，可以直接使用其git地址
-" Bundle 'git://git.wincent.com/command-t.git'
-" ...
+" Plugin 'git://git.wincent.com/command-t.git'
+
+" Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+
+call vundle#end() " end plugins
+filetype plugin indent on
 
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-" vundle主要就是上面这个四个命令，例如BundleInstall是全部重新安装，BundleInstall!则是更新
-" 一般安装插件的流程为，先BundleSearch一个插件，然后在列表中选中，按i安装
-" 安装完之后，在vimrc中，添加Bundle 'XXX'，使得bundle能够加载，这个插件，同时如果
+" :PluginList          - list configured bundles
+" :PluginInstall(!)    - install(update) bundles
+" :PluginSearch(!) foo - search(or refresh cache first) for foo
+" :PluginClean(!)      - confirm(or auto-approve) removal of unused bundles
+" vundle主要就是上面这个四个命令，例如PluginInstall是全部重新安装，PluginInstall!则是更新
+" 一般安装插件的流程为，先PluginSearch一个插件，然后在列表中选中，按i安装
+" 安装完之后，在vimrc中，添加Plugin 'XXX'，使得bundle能够加载，这个插件，同时如果
 " 需要配置这个插件，也是在vimrc中设置即可
 " see :h vundle for more details or wiki for FAQ
 "********************************************************************
@@ -161,8 +158,11 @@ Bundle 'EasyMotion'
 " Taglist
 "设置F3来开关Taglist窗口 
 map <F3> :TlistToggle<cr> 
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
+let Tlist_Auto_Open=1 "启动vim后，自动打开taglist窗口
+let Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Process_File_Always=1 "taglist始终解析文件中的tag，不管taglist窗口有木有打开
+let Tlist_Use_Right_Window=1  "taglist显示在右边
 " 空格，显示tag的原型定义
 " u，更新taglist中的tag
 " o，在新的窗口打开
@@ -176,67 +176,60 @@ let Tlist_Exit_OnlyWindow=1
 " q，退出
 "*************************************************
 
-"**************************************************
-" winmanager
-let g:winManagerWindowLayout='FileExplorer|TagList'
-nmap <F4> :WMToggle<cr>
-"**************************************************
+"*************************************************
+" molokai
+let g:molokai_original=1
+"*************************************************
 
-"**************************************************
+"*************************************************
+" The-NERD-Commenter
+" n,cc: 以下n行注释
+" n,cu: 以下n行取消注释
+" n,cm: 以下n行添加块注释
+"*************************************************
+
+"*************************************************
 " OmniCppComplete
-filetype plugin indent on
-"**************************************************
+" <C-X><C-O>
+set tags+=$HOME/.vim/tags/stl_tags
+let OmniCpp_NamespaceSearch=1
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_ShowAccess=1
+let OmniCpp_ShowPrototypeInAbbr=1 "显示函数参数列表
+let OmniCpp_MayCompleteDot=1
+let OmniCpp_MayCompleteArrow=1
+let OmniCpp_MayCompleteScope=1
+let OmniCpp_DefaultNamespaces=["std", "_GLIBCXX_STD"] "自动关闭补全窗口
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest
+"*************************************************
 
-"**************************************************
-" SuperTab
-let g:SuperTabRetainCompletionType=2
-let g:SuperTabDefaultCompletionType="<C-X><C-O>"
-"**************************************************
+"*************************************************
+" The-NERD-Tree
+map <F2> :NERDTreeToggle<CR>  "F2快捷键
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif "关闭vim时，如果只有NERDTree，则关闭
+autocmd vimenter * NERDTree
+autocmd VimEnter * wincmd p "Auto focus on file
+"*************************************************
 
-"**************************************************
-" STLTags
-set tags+=~/.vim/stl_tags
-"**************************************************
-
-"**************************************************
+"*************************************************
 " pythoncomplete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-"**************************************************
-
-"**************************************************
-" Pydiction
-let g:pydiction_location='~/.vim/bundle/Pydiction/complete-dict'
-"**************************************************
-
-"**************************************************
-" bufexplorer.zip
-"nmap <F6> :BufExplorerHorizontalSplit<cr>
-"**************************************************
-
-"**************************************************
-" miniBufExpl
-"let g:miniBufExplMapWindowNavVim = 1 
-"let g:miniBufExplMapWindowNavArrows = 1 
-"let g:miniBufExplMapCTabSwitchBufs = 1 
-"let g:miniBufExplModSelTarget = 1 
-"**************************************************
-
-"**************************************************
-" Bundle 'EasyMotion'
-let g:EasyMotion_leader_key = "<leader>"
-"*****************************************************
+"autocmd FileType python set omnifunc=pythoncomplete
+"*************************************************
 
 "*****************************************************
 "设置折行、水平滚动条、配色方案 
 if (has("gui_running")) 
 " 图形界面下的设置 
     set guioptions+=b 
-    colo desert "colorscheme
+    colo molokai "colorscheme desert
     set wrap 
 else 
 " 字符界面下的设置 
     set wrap 
-    colo ron 
+    "colo ron 
+    set t_Co=256
+    colo molokai
 endif 
 
 "============================================================================= 
