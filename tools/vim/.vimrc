@@ -87,6 +87,9 @@ set selection=inclusive "指定在选择文本时，光标所在位置也属于�
 " 把jj当做Esc使用
 inoremap jj <Esc>
 
+" 把``当做补全使用
+inoremap `` <C-P>
+
 "设置leader
 let mapleader = ","
 
@@ -131,6 +134,8 @@ Plugin 'The-NERD-tree'
 Plugin 'ctrlp.vim'
 Plugin 'OmniCppComplete'
 Plugin 'pythoncomplete'
+Plugin 'MatchTag'
+Plugin 'matchit.zip'
 
 " non github reposo
 " 非github的插件，可以直接使用其git地址

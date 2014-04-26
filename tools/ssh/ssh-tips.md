@@ -1,6 +1,7 @@
 启动ssh：
     systemctl start sshd.service
     restart stop etc.
+    service sshd start
 开机启动：
     systemctl enable sshd.service
 将端口22加到防火墙的设置中，标记为Accept：
