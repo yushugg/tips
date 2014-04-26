@@ -25,6 +25,7 @@ clone一个远程的仓库：
 
 创建ssh key：
     ssh-keygen -C "...@mail..." -t rsa，然后在profile中加入新的key
+    add new key to the ssh-agent: ssh-add ~/.ssh/id_rsa
     测试连通性：ssh -T git@github.com
 
 branch and checkout:
