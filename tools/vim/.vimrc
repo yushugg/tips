@@ -73,6 +73,8 @@ set sm "显示括号配对 showmatch
 set cin "打开C/C++风格的自动缩进 cindent
 set cino=:0g0t0(sus "设定C/C++风格自动缩进的选项 cinoptions
 set ai "打开普通文件类型的自动缩进 autoindent
+set backspace=indent,eol,start  "控制backspace按键
+set ru  "打开vim状态栏标尺
 
 " 语法高亮
 syntax enable
