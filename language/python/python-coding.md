@@ -31,3 +31,4 @@ Some tips:
   3. 避免字符编码：MBCS, DBCS, UTF-16
 
   注意str是字节串！！！
+  print屏幕输出时，输出的是字符，所以，如果编码成了字节，输出会乱掉，相反，如果输出unicode，或者ASCII本身皆可
