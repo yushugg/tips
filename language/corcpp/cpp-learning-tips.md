@@ -241,3 +241,90 @@ scanf, getchar读取char时，会吸收\n
 2. 寻找一个函数模板，若找到就将其实例化；不能强制转换参数匹配
 3. 使用函数重载，通过类型转换产生参数匹配
 4. 错误调用
+
+===========================================================
+26. 运算符重载
+当重载=，+=，-=，++，--等时，成员函数方法较好，因为要修改成员变量
+当重载二元运算什么的，使用friend更直观，而且可以解决friend operator+(int, Cents)的问题
+注意：当返回值是新建的时候，即产生的局部变量，返回类型不能使用引用返回；返回值引用只用在返回参数也是引用的且会改变该对象的属性值，参数也是引用；其他情况，参数就用const较好
+返回的是外部的已有的引用，则返回用&，且参数不要加const，其他情况参数加const较好，其他情况返回值不要返回引用
+
+// arithmetic operators(只用在const变量相加)
+friend Cents operator+(const Cents& c1, const Cents& c2){return Cents(c1.val+c2.val);}
+Cents operator+(const Cents& c){} // using member functions
+friend Cents operator-(const Cents& c1, const Cents& c2){}
+friend Cents operator*(const Cents& c1, const Cents& c2){}
+friend Cents operator/(const Cents& c1, const Cents& c2){}
+
+// io operators
+friend ostream& operator<< (ostream& out, Point& p){out << p.xx; return out;}
+friend istream& operator>> (istream& in, Point& p){in >> p.xx; return in;}
+
+// comparision operators
+friend bool operator== (Point& p1, Point& p2){}
+friend bool operator!= (Point& p1, Point& p2){}
+friend bool operator> (Point& p1, Point& p2){return p1.xx > p2.xx;}
+friend bool operator< (Point& p1, Point& p2){}
+friend bool operator>= (Point& p1, Point& p2){}
+friend bool operator<= (Point& p1, Point& p2){}
+
+// unary operators
+friend Cents operator-(const Cents& c){return Cents(-c.val);}
+Cents operator-(){} // using member functions
+friend bool operator!(const Cents& c){return c.val == 0;}
+
+要修改参数值时，传引用，并且传出引用
+// overloading the increment and decrement operators
+Digit& operator++()
+{
+  ++val;
+  return *this;
+}
+Digit& operator--()
+{
+  --val;
+  return *this;
+}
+// postfix
+Digit operator++(int)
+{
+  Digit result(val);
+  ++(*this);
+  return result;
+}
+Digit operator--(int)
+{
+  Digit result(val);
+  --(*this);
+  return result;
+}
+
+[]和()返回引用是为了，可以给a[2], a(2, 3)这样的赋值
+// subscript operator
+int& operator[](const int nIndex){return val[nIndex]);}
+
+// parenthesis operator
+double& operator()(const int nCol, const int nRow){return data[nRow][nCol];}
+void operator()(){} // no parameters
+
+// typecasts
+operator int(){}
+operator Cents(){}
+
+=======================================================
+27. Copy constructor and overloading the assignment operator
+Cents(const Cents &c)
+{
+  m_nCents = c.m_nCents;
+}
+Cents& operator=(const Cents& c)
+{
+  // check for self-assignment
+  if (this == &c)
+    return *this;
+  m_nCents = c.m_nCents;
+
+  return *this;
+}
+
+传递参数尽量使用const&，当要改变其值时，用&即可，且返回值为&
