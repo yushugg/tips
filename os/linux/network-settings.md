@@ -10,3 +10,27 @@
 
 方法3：
   netconfig图形界面配置
+
+ifconfig和route命令都已经废弃，使用ip命令来统一配置（也是暂时性的配置，要永久需要写入配置文件中）：
+1. ip link：配置网络接口属性
+    ip link show
+    ip link set ethX {up|down|arp| {on|off}}
+2. ip addr：配置网络地址
+    ip addr show
+    ip addr add IP dev ethX（此配置的网卡信息利用ifconfig看不到，要利用ip addr show来查看）
+    ip addr del IP dev ethX
+3. ip route：配置路由
+    ip route show
+    ip route change | replace
+    ip route add to 目的网段 dev ethX via IP（下一跳IP）
+
+其他网络命令：
+ifconfig
+route
+ip
+ping -c 3 -s 8000 -M do 10.10.98.98
+traceroute -n ip
+netstat -ntulpa
+host www.baidu.com  查询host的IP
+
+注意：-n选项是用来不将IP解析为主机名，速度更快
