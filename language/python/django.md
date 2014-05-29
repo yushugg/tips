@@ -20,6 +20,10 @@ MVC设计模式：
 
 urls:
     !!!匹配是从上到下的匹配，最上面的最先被匹配
+    !!!一般的正则表达式写成r'^xxx/$'形式，即最后加上/$，包括r'^$'
+    !!!而如果要是要include其他app中的URLCONF，则写成r'^xxx/'形式，不要$符号，这样就可以继续去匹配app中的配置
+
+    !!!一个配置有四项，正则表达式、view、参数、name，使用name，可以在templates里面使用：href="{% url 'polls:vote' poll.id %}"，include里面可以指定namespace：include('polls.urls', namespace='polls')
     函数对象方法：
         urlpatterns = patterns('',
             (r'^hello/$', hello or views.hello),
@@ -73,8 +77,14 @@ Django模板系统的基本规则：
     c = template.Context({'name': 'Adrian'})
     print t.render(c)
 
+    shortcuts:
+      render(request, 'app/xx.html', contextDict)
+
 Django模板中遍历复杂数据结构的关键是句点符号（.），类似对象中访问成员变量，调用方法的时候，不能用圆括号，所以不能传递参数，只能调用不需参数的方法
 在方法查找过程中,如果某方法抛出一个异常,除非该异常有一个 silent_variable_failure 属性并且值为 True ,否则的话它将被传播。如果异常被传播,模板里的指定变量会被置为空字符串
+
+点号访问顺序：
+  字典键值查询-->对象属性查询-->list的index查询
 
 防止自动执行的方法：
     如果模板文件里包含了{{ account.delete }} ,对象又具有 delete() 方法,而且delete() 有alters_data=True 这个属性,那么在模板载入时, delete()方法将不会被执行。 它将静静地错误退出。
@@ -107,6 +117,13 @@ for loop的一些变量：
 
 模板加载：
     !!!使用的都是/而不是\
+    !!!模板也不用指定TEMPLATE_DIRS，安装了template什么app之后，会自动寻找名为templates的模板
+    !!!所以为了区分不同的模板，应该在自己的app下面，建立一个templates文件夹，然后新建一个文件夹（通常为自己的app名），然后放入在该app名的文件夹下面，渲染的时候，使用render(request, 'app/home.html', contextDict)
+    !!!静态文件也类似
+    在自己的app下建立static/polls/style.css
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
     settings.py中修改TEMPLATE_DIRS
         TEMPLATE_DIRS = (
                 os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
