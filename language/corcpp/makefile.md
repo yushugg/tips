@@ -16,3 +16,18 @@ makefile原理：
     objects = main.o kbd.o command.o display.o \ 
         insert.o search.o files.o utils.o
     引用：$(objects)
+
+gcc 编译选项：
+  -x language 指定文件所使用的语言--c, objective-c, c-header, c++, assembler等
+  -x none 关闭上一个语言选项，让gcc自动根据文件名后缀识别文件类型
+  -c  做预处理、编译、汇编，生成中间文件obj文件（.o文件）
+  -S  做预处理、编译，生成汇编代码（.s文件）
+  -E  做预处理，不生成文件，可以重定向到一个输出文件里
+  -o  指定生成文件的名字
+  -g  只是在编译的时候，产生调试信息
+  -I dir  搜索dir目录中的头文件
+  -L dir  搜索dir目录中的库文件
+  -static 链接静态库
+  -library  链接名为library的库文件
+  -w  关闭所有告警
+  -Wall 允许发出gcc提供的所有有用的报警信息
