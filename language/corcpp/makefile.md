@@ -17,6 +17,26 @@ makefile原理：
         insert.o search.o files.o utils.o
     引用：$(objects)
 
+格式：
+  可执行文件 : 相关的好几个目标文件（作用是将这些文件链接起来，生成可执行文件）
+  然后，每个实现文件，要生成对应的目标文件
+  目标文件 : 一个实现文件 与之相关联的h头文件
+  如下：
+    test : test.o fraction.o ZeroDivisionException.o
+      g++ -o test test.o fraction.o ZeroDivisionException.o
+
+    test.o : test.cc fraction.h
+      g++ -Wall -g -c test.cc
+
+    fraction.o : fraction.cc ZeroDivisionException.h
+      g++ -Wall -g -c fraction.cc
+
+    ZeroDivisionException.o : ZeroDivisionException.cc
+      g++ -Wall -g -c ZeroDivisionException.cc
+
+    clean:
+      rm -rf *.o test *.exe
+
 gcc 编译选项：
   -x language 指定文件所使用的语言--c, objective-c, c-header, c++, assembler等
   -x none 关闭上一个语言选项，让gcc自动根据文件名后缀识别文件类型
