@@ -153,6 +153,18 @@ const member function:
     }
 Any const member function that attempts to change a member variable or call a non-const member function will cause a compiler error
 const member function只能调用const member，而且不能改变成员变量
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+1. const objects只能调用成员变量和const成员函数，调用非const成员函数会编译报错（在参数设为const Fraction& f，的时候，要考虑const对象调用的问题）
+  反之，非const objects可以调用任意的变量和函数
+2. const成员函数的两个作用：
+  给const objects调用
+  保证成员变量不被修改
+可以成员函数实现两个版本：const和非const的
+
+3. ***************当传入的不是引用，而是值的时候，const就没有必要了，因为值传递本来就不会改变其原始的值******************
+   ***************所以const只用于引用传递******************
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 20. class static function
 1) 无this指针，不属于哪个对象，属于类
