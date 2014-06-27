@@ -138,9 +138,18 @@ protected，只可以被类里面的函数调用，也可以被继承的类调�
 ===========================================================
 The access specifiers only affect whether outsiders and derived classes can access those members.
 关于继承(所有的影响指的是，对于外面的通过派生类来访问时的改变，派生类内部的的访问基类时的属性不会改变)：
+每一个类里面的成员都可以访问成员，成员的access specifier针对的是**类外面对其的访问情况**
+
+继承以后，在子类里面access specifier改变了：
 默认为private继承，所有的成员变成private
 public继承，所有的成员保持原来的acess specification
 protected继承，private仍是private，但是public和protected变成protected
+  例如，protected继承，在子类中，根据父类的access specifier，子类可以访问父类中的public和protected变量，但是如果新建了一个子类的实例，即子类的一个对象，则该对象无法访问任何成员了，因为变量要么是protected，要么是private
+
+继承的时候，share a base class，如此，PoweredDevice不会出现两次
+class Scanner : virtual public PoweredDevice{};
+class Printer : virtual public PoweredDevice{};
+class Copier : public Scanner, public Printer{};
 ===========================================================
 Provide a default constructor is almost always a good idea.
 
