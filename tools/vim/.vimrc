@@ -215,7 +215,7 @@ set completeopt=menuone,menu,longest
 " The-NERD-Tree
 map <F2> :NERDTreeToggle<CR>  "F2快捷键
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif "关闭vim时，如果只有NERDTree，则关闭
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 autocmd VimEnter * wincmd p "Auto focus on file
 "*************************************************
 
