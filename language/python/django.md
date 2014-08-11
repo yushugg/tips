@@ -161,6 +161,7 @@ Model：
     数据过滤：
         表.objects.filter(name='Apress', xx='xx')，返回的是一个list
             like语句--name__contains='press'
+            startswith语句--name__startswith='John'
             icontains(大小写无关的like)
             startswith, endswith, range
 
@@ -179,6 +180,10 @@ Model：
 
     删除：
         p.delete()
+
+  外键：
+    可以直接用两个下划线来获取，poll__published_date=xxx
+    反向的外键获取，用set，p.choice_set.all(), p.choice_set.count()
 
 表单：
     !!!即使客户端有js可以验证登陆，服务器端也要重新验证一次，因为用户可能会关闭js
