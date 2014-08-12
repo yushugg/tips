@@ -220,3 +220,6 @@ Model：
 **redirect在两种情况下会使用：**
 1. 一次成功的POST之后，为了防止用户刻意的重复提交
 2. 当一个URL改变了，引导用户到新的URL上
+
+有具体页面的view，要返回render一个页面
+没有具体页面的view，比如处理login，post数据的url，则重定向HttpResponseRedirect到有具体页面的view或者返回HttpResponse
