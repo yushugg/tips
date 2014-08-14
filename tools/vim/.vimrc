@@ -165,7 +165,7 @@ filetype plugin indent on
 " Taglist
 "设置F3来开关Taglist窗口 
 map <F3> :TlistToggle<cr> 
-let Tlist_Auto_Open=1 "启动vim后，自动打开taglist窗口
+"let Tlist_Auto_Open=1 "启动vim后，自动打开taglist窗口
 let Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
 let Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
 let Tlist_Process_File_Always=1 "taglist始终解析文件中的tag，不管taglist窗口有木有打开
