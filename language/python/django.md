@@ -223,3 +223,6 @@ Model：
 
 有具体页面的view，要返回render一个页面
 没有具体页面的view，比如处理login，post数据的url，则重定向HttpResponseRedirect到有具体页面的view或者返回HttpResponse
+
+REST Things:
+Resources, Validation, Authentication, Authorization, Caching
