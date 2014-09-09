@@ -13,3 +13,4 @@ stored properties（除了lazy stored properties）可以有willSet和didSet的p
 computed property用于检索或者设置其他的属性和值
 对于type property或type method，class用class关键字，struct和enum用static关键字
 改变structure和enumeration（value types）的property使用mutating关键字
+?显式定义一个Optional值，!隐式定义一个Optional值，区别在于取值的时候隐式的可以直接取值，不需要加上!，而显式的需要加上!，或者let d ＝ xx
