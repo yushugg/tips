@@ -25,3 +25,13 @@ Container class templates:
         unordered_multiset
         unordered_map
         unordered_multimap
+
+
+Algorithm:
+  一般参数为FirstIterator, LastIterator, value(or func)
+  或者FirstIterator1, LastIterator1, FirstIterator2, LastIterator2
+
+  std::make_heap(v.begin(), v.end());
+  std::pop_heap(v.begin(), v.end()); v.pop_back();//相当于先做Percate down, 将最值移到尾部，然后就可以pop出来
+  v.push_back(99); std::push_heap(v.begin(), v.end());//先在尾部插入数据，然后做Percate up，重构堆
+  std::sort_heap(v.begin(), v.end());//将目前的堆排序
