@@ -35,3 +35,7 @@ Algorithm:
   std::pop_heap(v.begin(), v.end()); v.pop_back();//相当于先做Percate down, 将最值移到尾部，然后就可以pop出来
   v.push_back(99); std::push_heap(v.begin(), v.end());//先在尾部插入数据，然后做Percate up，重构堆
   std::sort_heap(v.begin(), v.end());//将目前的堆排序
+
+std::sort:
+  必须保证a < b和b < a不能同时为true
+  (a, b) 返回true，表示a排在b的前面
