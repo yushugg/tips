@@ -122,106 +122,135 @@
         getline(cin, strName);
 
 14. delete删除的是指针指向的内存，指针还是存在
-Get in the habit of assigning your pointers to 0 both when they are declared (unless assigned to another address), and after they are deleted. It will save you a lot of grief.
-int *pnValue = new int;
-delete pnValue;
-pnValue = 0; // 指针还是存在，只是内存已被删除
-int *const pnPtr = &nValue; // 指针pnPtr是const，只能指向nValue，不可改变,不能指向其他
-const int *pnPtr = &nValue; // 指向的nValue不可改变, 即，通过pnPtr访问的nValue是const的
-====================
-const int nValue;
-const int *const pnPtr = &nValue;
-所有的都是const
-====================
-int nValue = 5;
-const int &rnRef = nValue; // 通过rnRef无法改变nValue
+
+    Get in the habit of assigning your pointers to 0 both when they are declared (unless assigned to another address), and after they are deleted. It will save you a lot of grief.
+
+        int *pnValue = new int;
+        delete pnValue;
+        pnValue = 0; // 指针还是存在，只是内存已被删除
+        int *const pnPtr = &nValue; // 指针pnPtr是const，只能指向nValue，不可改变,不能指向其他
+        const int *pnPtr = &nValue; // 指向的nValue不可改变, 即，通过pnPtr访问的nValue是const的
+
+        const int nValue;
+        const int *const pnPtr = &nValue; // 所有的都是const
+
+        int nValue = 5;
+        const int &rnRef = nValue; // 通过rnRef无法改变nValue
 
 15. Rule: Always pass by const reference unless you need to change the value of the argument
-大多数情况使用pass by reference，而不用pass by pointer，除非要动态分配内存
-by reference只针对变量有用，对于常量无法使用
-return by reference只能针对reference，不能return函数内部的局部变量
-=========================================================================================
-对于参数：如果literal，则不可&，可以考虑const，如果是大的对象什么的，则&,(eg.const Type &name)
-对于返回值：不要返回对于局部变量的引用，因为局部变量会destroy，除非返回值为输入的引用，否则不用返回引用,返回值如果const，则只能调用返回值的const成员函数
-对于函数：整个函数，只有是成员函数的时候才可以const，friend不是成员函数
-gen:    MyClass[&] func(const Class1 &m1, const Class2 &m2)
+
+    大多数情况使用pass by reference，而不用pass by pointer，除非要动态分配内存
+
+    by reference只针对变量有用，对于常量无法使用
+
+    return by reference只能针对reference，不能return函数内部的局部变量
+
+    对于参数：如果literal，则不可&，可以考虑const，如果是大的对象什么的，则&,(eg.const Type &name)
+
+    对于返回值：不要返回对于局部变量的引用，因为局部变量会destroy，除非返回值为输入的引用，否则不用返回引用,返回值如果const，则只能调用返回值的const成员函数
+
+    对于函数：整个函数，只有是成员函数的时候才可以const，friend不是成员函数
+
+        gen:    MyClass[&] func(const Class1 &m1, const Class2 &m2)
+
     如果返回值用到了&，则里面的参数m1和m2至少有一个是非const
-=========================================================================================
 
 16. Exceptions: Detecting assumption errors
-As it turns out, we can catch almost all assumptions that need to be checked in one of three locations:
-1. When a function has been called, the user may have passed the function parameters that are semantically meaningless.
-2. When a function returns, the return value may indicate that an error has occured.
-3. When program receives input (either from the user, or a file), the input may not be in the correct format.
-Consequently, the following rules should be used when programming defensively:
-1. At the top of each function, check to make sure any parameters have appropriate values.
-2. After a function is called, check it’s return value (if any), and any other error reporting mechanisms, to see if an error occured.
-3. Validate any user input to make sure it meets the expected formatting or range criteria.
-即三处检测：函数的参数传递、函数的返回值、用户的输入
+
+    As it turns out, we can catch almost all assumptions that need to be checked in one of three locations:
+
+    * When a function has been called, the user may have passed the function parameters that are semantically meaningless.
+    * When a function returns, the return value may indicate that an error has occured.
+    * When program receives input (either from the user, or a file), the input may not be in the correct format.
+
+    Consequently, the following rules should be used when programming defensively:
+
+    * At the top of each function, check to make sure any parameters have appropriate values.
+    * After a function is called, check it’s return value (if any), and any other error reporting mechanisms, to see if an error occured.
+    * Validate any user input to make sure it meets the expected formatting or range criteria.
+
+    即三处检测：函数的参数传递、函数的返回值、用户的输入
 
 17. Command line arguments
-int main(int argc, char* argv[]);
-int main(int argc, char** argv);
-argc: arg count     argv: arg variable
-都会把程序名算进去
+
+        int main(int argc, char* argv[]);
+        int main(int argc, char** argv);
+        argc: arg count     argv: arg variable
+
+    都会把程序名算进去
 
 18. class
-无static都是可以跨文件调用的
-默认为private,只可以被类里的函数调用,且不能被继承的类调用
-public,可以被类外面的所有函数调用
-protected，只可以被类里面的函数调用，也可以被继承的类调用
-===========================================================
-The access specifiers only affect whether outsiders and derived classes can access those members.
-关于继承(所有的影响指的是，对于外面的通过派生类来访问时的改变，派生类内部的的访问基类时的属性不会改变)：
-每一个类里面的成员都可以访问成员，成员的access specifier针对的是**类外面对其的访问情况**
 
-继承以后，在子类里面access specifier改变了：
-默认为private继承，所有的成员变成private
-public继承，所有的成员保持原来的acess specification
-protected继承，private仍是private，但是public和protected变成protected
-  例如，protected继承，在子类中，根据父类的access specifier，子类可以访问父类中的public和protected变量，但是如果新建了一个子类的实例，即子类的一个对象，则该对象无法访问任何成员了，因为变量要么是protected，要么是private
+    无static都是可以跨文件调用的
 
-继承的时候，share a base class，如此，PoweredDevice不会出现两次
-class Scanner : virtual public PoweredDevice{};
-class Printer : virtual public PoweredDevice{};
-class Copier : public Scanner, public Printer{};
-===========================================================
-Provide a default constructor is almost always a good idea.
+    * 默认为private,只可以被类里的函数调用,且不能被继承的类调用
+    * public,可以被类外面的所有函数调用
+    * protected，只可以被类里面的函数调用，也可以被继承的类调用
+
+    The access specifiers only affect whether outsiders and derived classes can access those members.
+
+    关于继承(所有的影响指的是，对于外面的通过派生类来访问时的改变，派生类内部的的访问基类时的属性不会改变)：
+
+    每一个类里面的成员都可以访问成员，成员的access specifier针对的是**类外面对其的访问情况**
+
+    继承以后，在子类里面access specifier改变了：
+
+    * 默认为private继承，所有的成员变成private
+    * public继承，所有的成员保持原来的acess specification
+    * protected继承，private仍是private，但是public和protected变成protected
+
+    例如，protected继承，在子类中，根据父类的access specifier，子类可以访问父类中的public和protected变量，但是如果新建了一个子类的实例，即子类的一个对象，则该对象无法访问任何成员了，因为变量要么是protected，要么是private
+
+    继承的时候，share a base class，如此，PoweredDevice不会出现两次
+
+        class Scanner : virtual public PoweredDevice{};
+        class Printer : virtual public PoweredDevice{};
+        class Copier : public Scanner, public Printer{};
+
+    Provide a default constructor is almost always a good idea.
 
 19. class const function
-const class objects can only call const member functions
-const member function:
-    int getValue() const
-    {
-        return m_nValue;
-    }
-Any const member function that attempts to change a member variable or call a non-const member function will cause a compiler error
-const member function只能调用const member，而且不能改变成员变量
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-1. const objects只能调用成员变量和const成员函数，调用非const成员函数会编译报错（在参数设为const Fraction& f，的时候，要考虑const对象调用的问题）
-  反之，非const objects可以调用任意的变量和函数
-2. const成员函数的两个作用：
-  给const objects调用
-  保证成员变量不被修改
-可以成员函数实现两个版本：const和非const的
 
-3. ***************当传入的不是引用，而是值的时候，const就没有必要了，因为值传递本来就不会改变其原始的值******************
-   ***************所以const只用于引用传递******************
+    const class objects can only call const member functions
 
-总结函数中的参数传递，总共三种情况：
-  对于一般类型，只需值传递，无需考虑其他
-  对于对象，最好都传递引用&，分为const Fraction&（不能修改对象本身），和Fraction&（可以修改对象本身）
-  对于指针类型，可以加const（不能修改指针所指的对象），和不加const（可以修改指针所指的对象），还有char* &xx;
+    const member function:
 
-总结函数的返回值：
-  如果返回的是其中一个参数，即参数为引用传递，才可以返回引用
-  其他，如果参数都是const，则返回值
+        int getValue() const
+        {
+            return m_nValue;
+        }
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Any const member function that attempts to change a member variable or call a non-const member function will cause a compiler error
+
+    const member function只能调用const member，而且不能改变成员变量
+
+    * const objects只能调用成员变量和const成员函数，调用非const成员函数会编译报错（在参数设为const Fraction& f，的时候，要考虑const对象调用的问题），反之，非const objects可以调用任意的变量和函数
+    * const成员函数的两个作用：
+
+        - 给const objects调用
+        - 保证成员变量不被修改
+
+    可以成员函数实现两个版本：const和非const的
+
+    当传入的不是引用，而是值的时候，const就没有必要了，因为值传递本来就不会改变其原始的值
+
+    所以const常用于引用传递
+
+    总结函数中的参数传递，总共三种情况：
+
+    * 对于一般类型，只需值传递，无需考虑其他
+    * 对于对象，最好都传递引用&，分为const Fraction&（不能修改对象本身），和Fraction&（可以修改对象本身）
+    * 对于指针类型，可以加const（不能修改指针所指的对象），和不加const（可以修改指针所指的对象），还有char* &xx;
+
+    总结函数的返回值：
+
+    * 如果返回的是其中一个参数，即参数为引用传递，才可以返回引用
+    * 其他，如果参数都是const，则返回值
 
 20. class static function
-1) 无this指针，不属于哪个对象，属于类
-2) 只能访问static member变量，非静态的不可访问
+
+    * 无this指针，不属于哪个对象，属于类
+    * 只能访问static member变量，非静态的不可访问
 
 21. friend function and operator overloading
 friend function不属于成员函数
