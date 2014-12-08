@@ -15,7 +15,9 @@
         << "really long line" << endl;
 
     This makes it more obvious from looking at the first line that the next line is going to be a continuation.
+
     OPERAND first!!!
+
     stream朝着尖的的方向流动
 
 4. You can undefine a previously defined value by using the #undef preprocessor directive. Consider the following snippet:
@@ -25,30 +27,35 @@
         #undef MY_NAME
         cout << "My name is " << MY_NAME << endl;
 
-The last line of the program causes a compile error because MY_NAME has been undefined.
+    The last line of the program causes a compile error because MY_NAME has been undefined.
 
 5. Preprocess
 
-带有#的是预处理进行的，这些命令是C++不能识别的，不带有分号
+    带有#的是预处理进行的，这些命令是C++不能识别的，不带有分号
 
-如宏定义，define等都属于此
+    如宏定义，define等都属于此
 
 6. C++ operators
-There are only three operators in C++ that is a word instead of a symbol:
-sizeof: return data type's bytes
-new
-delete
+    There are only three operators in C++ that is a word instead of a symbol:
+        sizeof: return data type's bytes
+        new
+        delete
 
 7. Float number precision
-float和double，cout显示时都只有6 digits，不包括小数点，小数点前后总共6位
-float 一般的精度为7个有效数字, double一般为16位有效数字
-不过可以使用<iomanip>中的setprecision()来设置show,即cout的精度
-cout << setprecision(16),不含小数点，小数点前后总共6位
+    float和double，cout显示时都只有6 digits，不包括小数点，小数点前后总共6位
+
+    float 一般的精度为7个有效数字, double一般为16位有效数字
+
+    不过可以使用<iomanip>中的setprecision()来设置show,即cout的精度
+
+    cout << setprecision(16),不含小数点，小数点前后总共6位
 
 8. 声明在外面的为global变量，其他的file也可以使用，但使用前要用extern声明一下
-如果外面和里面都有同一个变量，则里面的为使用的，若要使用外面的，使用::nValue，前面加上::
-file scope: 关键字为在global变量处加上static, 不可以使用extern，只可以在本文件中使用！！！
-如果static加在block的里面，则使得变量拥有fixed duration
+    如果外面和里面都有同一个变量，则里面的为使用的，若要使用外面的，使用::nValue，前面加上::
+
+    file scope: 关键字为在global变量处加上static, 不可以使用extern，只可以在本文件中使用！！！
+
+    如果static加在block的里面，则使得变量拥有fixed duration
 
 9. Casting
 C的casting，float fValue = (float)nvalue1 / nValue2;
