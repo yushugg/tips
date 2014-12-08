@@ -9,16 +9,14 @@
         cout << "This is a really, really, really, really, really, really, really, " <<
         "really long line" << endl;
 
-Not
+    Not
 
         cout << "This is a really, really, really, really, really, really, really, "
         << "really long line" << endl;
 
-This makes it more obvious from looking at the first line that the next line is going to be a continuation.
-
-OPERAND first!!!
-
-stream朝着尖的的方向流动
+    This makes it more obvious from looking at the first line that the next line is going to be a continuation.
+    OPERAND first!!!
+    stream朝着尖的的方向流动
 
 4. You can undefine a previously defined value by using the #undef preprocessor directive. Consider the following snippet:
 
