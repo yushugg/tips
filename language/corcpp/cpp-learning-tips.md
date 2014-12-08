@@ -36,12 +36,15 @@
     如宏定义，define等都属于此
 
 6. C++ operators
+
     There are only three operators in C++ that is a word instead of a symbol:
+
         sizeof: return data type's bytes
         new
         delete
 
 7. Float number precision
+
     float和double，cout显示时都只有6 digits，不包括小数点，小数点前后总共6位
 
     float 一般的精度为7个有效数字, double一般为16位有效数字
@@ -51,6 +54,7 @@
     cout << setprecision(16),不含小数点，小数点前后总共6位
 
 8. 声明在外面的为global变量，其他的file也可以使用，但使用前要用extern声明一下
+
     如果外面和里面都有同一个变量，则里面的为使用的，若要使用外面的，使用::nValue，前面加上::
 
     file scope: 关键字为在global变量处加上static, 不可以使用extern，只可以在本文件中使用！！！
@@ -58,21 +62,27 @@
     如果static加在block的里面，则使得变量拥有fixed duration
 
 9. Casting
-C的casting，float fValue = (float)nvalue1 / nValue2;
-C++保留的C的casting, float fValue = float(nValue1) / nValue2; // 更像函数的调用
-C++新的casting的operator,告知编译器做的是强制的显示cast: 编译时static_cast,只会做标准的cast，而不做其它的
-运行时：dynamic_cast
-eg. float fValue = static_cast<float>(nValue1) / nValue2;
-====================================================
-四种cast操作：
-reinterpret_cast
-static_cast
-dynamic_cast
-const_cast
-====================================================
+
+    C的casting，float fValue = (float)nvalue1 / nValue2;
+
+    C++保留的C的casting, float fValue = float(nValue1) / nValue2; // 更像函数的调用
+
+    C++新的casting的operator,告知编译器做的是强制的显示cast: 编译时static_cast,只会做标准的cast，而不做其它的
+
+    运行时：dynamic_cast
+
+    eg. float fValue = static_cast<float>(nValue1) / nValue2;
+
+    四种cast操作：
+
+        reinterpret_cast
+        static_cast
+        dynamic_cast
+        const_cast
 
 10. enum和switch语句，只能适用于整型的变量
-switch的case里必须是constant的
+
+    switch的case里必须是constant的
 
 11. random numbers:
 #include <cstdlib> // for srand() and rand()
