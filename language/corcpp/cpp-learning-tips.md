@@ -85,30 +85,41 @@
     switch的case里必须是constant的
 
 11. random numbers:
-#include <cstdlib> // for srand() and rand()
-srand() sets the initial seed value. srand() should only be called once.
-设置初始值，只能使用一次,如，设置initial seed value为5323, srand(5323)
-rand() generates the next random number in the sequence (starting from the seed set by srand()).
-产生以后的每个number,调用rand()
-范围为0到RAND_MAX，常为32767
-产生nLow到nHigh的随机数：rand()%(nHigh-nLow+1) + nLow;
-#include <ctime> // for time()
-srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970; 0=NULL
+
+        #include <cstdlib> // for srand() and rand()
+        // srand() sets the initial seed value. srand() should only be called once.
+
+    设置初始值，只能使用一次,如，设置initial seed value为5323, srand(5323)
+
+    rand() generates the next random number in the sequence (starting from the seed set by srand()).
+
+    产生以后的每个number,调用rand()
+
+    范围为0到RAND_MAX，常为32767
+
+    产生nLow到nHigh的随机数：rand()%(nHigh-nLow+1) + nLow;
+
+        #include <ctime> // for time()
+        srand(time(0));// time() that returns the number of seconds since midnight on Jan 1, 1970; 0=NULL
 
 12. array在声明时，int anArray[size]，size必须是constant：literal constant, define, const, enum
-即必须在compile time就知道size的大小
-在使用时，index可以是一个non-constant or constant的整数
-int nSize = 5;
-int anArray[nSize]; // Not OK! nSize is not a constant
+
+    即必须在compile time就知道size的大小
+
+    在使用时，index可以是一个non-constant or constant的整数
+
+        int nSize = 5;
+        int anArray[nSize]; // Not OK! nSize is not a constant
 
 13. strncpy(szDest, szSource, number)
-    strncat
-    strncmp
-    ----------------------------
-    char szBuffer[255];
-    cin.getline(szBuffer, 255);
-    std::string strName;
-    getline(cin, strName);
+
+        strncat
+        strncmp
+
+        char szBuffer[255];
+        cin.getline(szBuffer, 255);
+        std::string strName;
+        getline(cin, strName);
 
 14. delete删除的是指针指向的内存，指针还是存在
 Get in the habit of assigning your pointers to 0 both when they are declared (unless assigned to another address), and after they are deleted. It will save you a lot of grief.
