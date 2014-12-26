@@ -51,3 +51,8 @@ ignore 文件：
 git config：
     git config --global user.name xxx
     git config --list
+
+撤销：
+    git commit --amend 修改最后一次提交，将当前staged的也加入到最后一次commit中
+    git reset HEAD <file> 将已经staged的file撤销，编程untracked
+    git checkout -- file 取消对file的修改，从staged去除file
