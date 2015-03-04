@@ -1,9 +1,9 @@
-1. ���ɳ�����̣�
+1. 生成程序过程：
 
-    ���룺����Դ�ļ������м�Ŀ���ļ���o�ļ�����obj�ļ���
-    ���ӣ������м�Ŀ���ļ����ɿ�ִ���ļ����ڴ����ʱ������Դ�ļ�̫�࣬�������ɵ��м�Ŀ���ļ�̫�࣬��������ʱ��Ҫ���Ե�ָ���м�Ŀ���ļ���������ڱ���ܲ����㣬���ԣ�����Ҫ���м�Ŀ���ļ����������Windows�����ְ��С����ļ�����Library File)��Ҳ���� .lib �ļ�����UNIX�£���Archive File��Ҳ���� .a �ļ�
+    编译：根据源文件生成中间目标文件（o文件或者obj文件）
+    链接：根据中间目标文件生成可执行文件，在大多数时候，由于源文件太多，编译生成的中间目标文件太多，而在链接时需要明显地指出中间目标文件名，这对于编译很不方便，所以，我们要给中间目标文件打个包，在Windows下这种包叫“库文件”（Library File)，也就是 .lib 文件，在UNIX下，是Archive File，也就是 .a 文件
 
-2. makefile����
+2. makefile规则：
 
         target...:prerequisites...
             command
@@ -13,27 +13,27 @@
         clean : 
             -rm edit $(objects)
 
-    һ��Ҫ��һ��Tab����Ϊ��ͷ 
+    一定要以一个Tab键作为开头 
 
-3. makefileԭ����
-    prerequisites�������һ�����ϵ��ļ���target�ļ�Ҫ�µĻ���command�����������ͻᱻִ�С������Makefile�Ĺ���Ҳ����Makefile������ĵ����ݡ�
+3. makefile原理：
+    prerequisites中如果有一个以上的文件比target文件要新的话，command所定义的命令就会被执行。这就是Makefile的规则。也就是Makefile中最核心的内容。
 
-4. ������
+4. 变量：
 
         objects = main.o kbd.o command.o display.o \ 
             insert.o search.o files.o utils.o
 
-5. ���ã�$(objects)
+5. 引用：$(objects)
 
-6. ��ʽ��
+6. 格式：
 
-    ��ִ���ļ� : ��صĺü���Ŀ���ļ��������ǽ���Щ�ļ��������������ɿ�ִ���ļ���
+    可执行文件 : 相关的好几个目标文件（作用是将这些文件链接起来，生成可执行文件）
 
-    Ȼ��ÿ��ʵ���ļ���Ҫ���ɶ�Ӧ��Ŀ���ļ�
+    然后，每个实现文件，要生成对应的目标文件
 
-    Ŀ���ļ� : һ��ʵ���ļ� ��֮�������hͷ�ļ�
+    目标文件 : 一个实现文件 与之相关联的h头文件
 
-    ���£�
+    如下：
 
         test : test.o fraction.o ZeroDivisionException.o
           g++ -o test test.o fraction.o ZeroDivisionException.o
@@ -50,18 +50,18 @@
         clean:
           rm -rf *.o test *.exe
 
-7. gcc ����ѡ�
+7. gcc 编译选项：
 
-        -x language ָ���ļ���ʹ�õ�����--c, objective-c, c-header, c++, assembler��
-        -x none �ر���һ������ѡ���gcc�Զ������ļ�����׺ʶ���ļ�����
-        -c  ��Ԥ���������롢��࣬�����м��ļ�obj�ļ���.o�ļ���
-        -S  ��Ԥ���������룬���ɻ����루.s�ļ���
-        -E  ��Ԥ�������������ļ��������ض���һ������ļ���
-        -o  ָ�������ļ�������
-        -g  ֻ���ڱ����ʱ�򣬲���������Ϣ
-        -I dir  ����dirĿ¼�е�ͷ�ļ�
-        -L dir  ����dirĿ¼�еĿ��ļ�
-        -static ���Ӿ�̬��
-        -library  ������Ϊlibrary�Ŀ��ļ�
-        -w  �ر����и澯
-        -Wall ��������gcc�ṩ���������õı�����Ϣ
+        -x language 指定文件所使用的语言--c, objective-c, c-header, c++, assembler等
+        -x none 关闭上一个语言选项，让gcc自动根据文件名后缀识别文件类型
+        -c  做预处理、编译、汇编，生成中间文件obj文件（.o文件）
+        -S  做预处理、编译，生成汇编代码（.s文件）
+        -E  做预处理，不生成文件，可以重定向到一个输出文件里
+        -o  指定生成文件的名字
+        -g  只是在编译的时候，产生调试信息
+        -I dir  搜索dir目录中的头文件
+        -L dir  搜索dir目录中的库文件
+        -static 链接静态库
+        -library  链接名为library的库文件
+        -w  关闭所有告警
+        -Wall 允许发出gcc提供的所有有用的报警信息

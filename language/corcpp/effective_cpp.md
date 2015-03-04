@@ -34,14 +34,14 @@
             int scores[NumTurns];
         };
 
-3. *左边的是所指物是const，*右边是指针本身const
+3. \*左边的是所指物是const，*右边是指针本身const
 
         const char* const p;
         char const* const p;
 
     对于迭代器：
 
-    迭代器类似T*，所以迭代器为const，表明指针是const，即T* const，指针不变，但是指针所指的东西可以改变
+    迭代器类似T\*，所以迭代器为const，表明指针是const，即T* const，指针不变，但是指针所指的东西可以改变
 
     如果要所指向的东西不变，需用const_iterator
 
@@ -58,6 +58,6 @@
 
     const对象可以读取成员变量，但是不能改变它们，所以读取是没问题的
 
-    为了不写两份代码（一份是const成员，一份不是），可以调用const_cast<char&>将const char&转换为char&，消除const；调用static_cast<const TextBlock&>(*this)[position]将非const的参数改为const类型的参数。<>里面的是转成的结果
+    为了不写两份代码（一份是const成员，一份不是），可以调用const\_cast<char&>将const char&转换为char&，消除const；调用static_cast<const TextBlock&>(*this)[position]将非const的参数改为const类型的参数。<>里面的是转成的结果
 
     利用const版本写出非const版本，先写const，再复用产生非const，反之不好，因为const成员函数绝不改动对象成员

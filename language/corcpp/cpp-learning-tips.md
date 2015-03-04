@@ -40,6 +40,7 @@
     There are only three operators in C++ that is a word instead of a symbol:
 
         sizeof: return data type's bytes
+        	指针和array的区别：指针sizeof是一个指针大小，arraysizeof是所有连续空间的大小总和
         new
         delete
 
@@ -289,7 +290,7 @@
 
     C++会有默认的copy constructor和赋值=运算，但是是浅复制,即直接使用=号赋值各个变量的值，不会分配内存什么的
 
-    所以最好自己写copy constructor，如果涉及到内存分配什么的，如char×的问题
+    所以最好自己写copy constructor，如果涉及到内存分配什么的，如char*的问题
 
     Summary:
 
