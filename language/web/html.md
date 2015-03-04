@@ -1,10 +1,6 @@
-﻿属性中背景颜色用bgcolor，背景图片用background
+﻿1. 属性中背景颜色用bgcolor，背景图片用background，对齐为align，不要用center，这些已被废弃，建议使用css
 
-对齐为align，不要用center
-
-这些已被废弃，建议使用css
-
-doctype 声明
+2. doctype 声明
 
     HTML5
     <!DOCTYPE html>

@@ -1,12 +1,15 @@
-ext3:
-    加入了日志
-ext4:
-    可允许的最大系统达到了1EB（1EB=1024PB，1PB=1024TB）
-    单个文件的大小也增加了
-    目录允许的子文件个数翻倍了（64,000比32,000）
+## ext2, ext3, ext4
+
+1. ext3:  
+	加入了日志
+2. ext4:  
+    可允许的最大系统达到了1EB（1EB=1024PB，1PB=1024TB）  
+    单个文件的大小也增加了  
+    目录允许的子文件个数翻倍了（64,000比32,000）  
     增加了多块分配、延时分配、日志校验、快速fsck等，性能和可靠性提高了
 
-create an ext2, ext3 or ext4 fs:
+create an ext2, ext3 or ext4 fs:  
+
     ext2:
         mke2fs /dev/sda1
     ext3:
@@ -17,3 +20,8 @@ create an ext2, ext3 or ext4 fs:
         mkfs.ext4 /dev/sda1
         (or)
         mke2fs -t ext4 /dev/sda1
+        
+## 软链接，硬链接
+
+1. 硬链接作用是允许一个文件拥有多个有效路径名，inode相同，并没有创建新的文件，相当于别名；并且通过计数来确定何时删除文件
+2. 软链接其实是一个文件，有不同的inode
