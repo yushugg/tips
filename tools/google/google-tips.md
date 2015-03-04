@@ -1,4 +1,5 @@
-﻿special characters:
+special characters:
+
     term1 term2; both and
     term1 OR term2 term1 | term2; either or
     "term"; stop words will be considered
@@ -8,10 +9,12 @@
     *; one or more words
 
 phrase:
+
     Add "", search complete words
     eg. "xxxx"
 
 operators:
+
     filetype:pdf
     site:baidu.com domain
     allintitle: occurrences in the title of the page

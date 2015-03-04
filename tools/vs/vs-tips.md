@@ -1,2 +1,3 @@
-Ìí¼Ó¸½¼ÓµÄincludeÂ·¾¶£º
-    Ã¿¸ösolutionµÄÃ¿¸öprojectÓÒ¼üpropertyÖĞConfiguration PropertyÖĞC/C++µÄGeneralÖĞµÄAdditional Include Directories
+æ·»åŠ é™„åŠ çš„includeè·¯å¾„ï¼š
+
+    æ¯ä¸ªsolutionçš„æ¯ä¸ªprojectå³é”®propertyä¸­Configuration Propertyä¸­C/C++çš„Generalä¸­çš„Additional Include Directories

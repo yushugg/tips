@@ -1,17 +1,20 @@
-gitÃüÁî£º
-    git cmd option Ô¶¶Ë£¨githubÉÏ£© ½ü¶Ë£¨local£©
-    (git remote add origin https://github.com/yushugg/xx.git remote´ú±ígithubÉÏµÄ²Ö¿â
-     git push origin master origin´ú±ígithubÉÏµÄ²Ö¿âÃû£¬masterÎª±¾µØµÄ·ÖÖ§
+gitå‘½ä»¤ï¼š
+
+    git cmd option è¿œç«¯ï¼ˆgithubä¸Šï¼‰ è¿‘ç«¯ï¼ˆlocalï¼‰
+    (git remote add origin https://github.com/yushugg/xx.git remoteä»£è¡¨githubä¸Šçš„ä»“åº“
+     git push origin master originä»£è¡¨githubä¸Šçš„ä»“åº“åï¼Œmasterä¸ºæœ¬åœ°çš„åˆ†æ”¯
      git pull origin master
      git commit -m "xx yy")
 
-´´½¨Ò»¸öÔ¶³ÌµÄ²Ö¿â£º
-    ÏÈÔÚgithub.comÉÏ´´½¨Ò»¸ö²Ö¿â
-    È»ºó±¾µØcloneÏÂÀ´git clone https://github.com/yushugg/xx.git
-    ÆäÖĞ£¬originÎªÄ¬ÈÏµÄÔ¶³Ì²Ö¿âµÄshortname
-    Ã¿´ÎµÄÌá½»£¬·ÖÎªgit add .;git commit -m "message";git push origin master;²é¿´Ä¿Ç°×´Ì¬£ºgit status£»
+åˆ›å»ºä¸€ä¸ªè¿œç¨‹çš„ä»“åº“ï¼š
 
-»òÕßÏÈ±¾µØ´´½¨£¬È»ºógithub remote¶ËÌí¼Ó£º
+    å…ˆåœ¨github.comä¸Šåˆ›å»ºä¸€ä¸ªä»“åº“
+    ç„¶åæœ¬åœ°cloneä¸‹æ¥git clone https://github.com/yushugg/xx.git
+    å…¶ä¸­ï¼Œoriginä¸ºé»˜è®¤çš„è¿œç¨‹ä»“åº“çš„shortname
+    æ¯æ¬¡çš„æäº¤ï¼Œåˆ†ä¸ºgit add .;git commit -m "message";git push origin master;æŸ¥çœ‹ç›®å‰çŠ¶æ€ï¼šgit statusï¼›
+
+æˆ–è€…å…ˆæœ¬åœ°åˆ›å»ºï¼Œç„¶ågithub remoteç«¯æ·»åŠ ï¼š
+
     mkdir xx
     git init
     ...write something...
@@ -20,39 +23,48 @@ gitÃüÁî£º
     git remote add origin https://github.com/yushugg/xx.git
     git push origin master
 
-cloneÒ»¸öÔ¶³ÌµÄ²Ö¿â£º
-    git clone xxx.git [±¾µØÒÑ´æÔÚµÄÄ¿Â¼Ãû]
+cloneä¸€ä¸ªè¿œç¨‹çš„ä»“åº“ï¼š
 
-´´½¨ssh key£º
-    ssh-keygen -C "...@mail..." -t rsa£¬È»ºóÔÚprofileÖĞ¼ÓÈëĞÂµÄkey
+    git clone xxx.git [æœ¬åœ°å·²å­˜åœ¨çš„ç›®å½•å]
+
+åˆ›å»ºssh keyï¼š
+
+    ssh-keygen -C "...@mail..." -t rsaï¼Œç„¶ååœ¨profileä¸­åŠ å…¥æ–°çš„key
     add new key to the ssh-agent: ssh-add ~/.ssh/id_rsa
-    ²âÊÔÁ¬Í¨ĞÔ£ºssh -T git@github.com
+    æµ‹è¯•è¿é€šæ€§ï¼šssh -T git@github.com
 
 branch and checkout:
-    ĞÂ½¨Ò»¸ö·ÖÖ§£ºgit branch [branch-name]
-    É¾³ıÒ»¸ö·ÖÖ§£ºgit branch -d [branch-name]
-    ÇĞ»»µ½testing·ÖÖ§£ºgit checkout testing
-    ºÏ²¢·ÖÖ§£ºÔÚmaster·ÖÖ§ÏÂ£¬git merge [branch-name] ½«branchºÏ²¢µ½master
 
-ignore ÎÄ¼ş£º
-    .gitignoreÖĞÌí¼ÓÄÚÈİ
+    æ–°å»ºä¸€ä¸ªåˆ†æ”¯ï¼šgit branch [branch-name]
+    åˆ é™¤ä¸€ä¸ªåˆ†æ”¯ï¼šgit branch -d [branch-name]
+    åˆ‡æ¢åˆ°testingåˆ†æ”¯ï¼šgit checkout testing
+    åˆå¹¶åˆ†æ”¯ï¼šåœ¨masteråˆ†æ”¯ä¸‹ï¼Œgit merge [branch-name] å°†branchåˆå¹¶åˆ°master
 
-²é¿´±ä»¯£¬diff£º
+ignore æ–‡ä»¶ï¼š
+
+    .gitignoreä¸­æ·»åŠ å†…å®¹
+
+æŸ¥çœ‹å˜åŒ–ï¼Œdiffï¼š
+
     git diff (--cached)
 
-²é¿´ÀúÊ·£¬log£º
+æŸ¥çœ‹å†å²ï¼Œlogï¼š
+
     git log (-p -2)
 
-ÒÆ³ıºÍĞŞ¸ÄÎÄ¼ş£º
+ç§»é™¤å’Œä¿®æ”¹æ–‡ä»¶ï¼š
+
     git rm xxx  git; mv file_from file_to
     git remote rename file_from file_to
     git remote rm paul
 
-git config£º
+git configï¼š
+
     git config --global user.name xxx
     git config --list
 
-³·Ïú£º
-    git commit --amend ĞŞ¸Ä×îºóÒ»´ÎÌá½»£¬½«µ±Ç°stagedµÄÒ²¼ÓÈëµ½×îºóÒ»´ÎcommitÖĞ
-    git reset HEAD <file> ½«ÒÑ¾­stagedµÄfile³·Ïú£¬±à³Ìuntracked
-    git checkout -- file È¡Ïû¶ÔfileµÄĞŞ¸Ä£¬´ÓstagedÈ¥³ıfile
+æ’¤é”€ï¼š
+
+    git commit --amend ä¿®æ”¹æœ€åä¸€æ¬¡æäº¤ï¼Œå°†å½“å‰stagedçš„ä¹ŸåŠ å…¥åˆ°æœ€åä¸€æ¬¡commitä¸­
+    git reset HEAD <file> å°†å·²ç»stagedçš„fileæ’¤é”€ï¼Œå˜æˆuntracked
+    git checkout -- file æ’¤é”€å¯¹fileçš„ä¿®æ”¹

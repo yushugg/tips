@@ -1,6 +1,6 @@
 
-t帐号执行：
-tar xvzf $tarball -C /
+t帐号执行：  
+tar xvzf $tarball -C /  
 就可以了
 
 Fedora 16的安装包

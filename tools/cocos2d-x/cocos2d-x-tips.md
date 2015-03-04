@@ -8,7 +8,7 @@
 
 如果属性为一个bool值，将会有setProperty(bool)及 isProperty()方法。 比如：Sprite::isDirty()和Sprite::setDirty(bool bDirty)。
 
-如果属性不是一个bool值，将会有 setProperty(type) 和 getProperty() 方法。比如： void Sprite::setTexture(Texture2D*) 和 Texture2D* CCSprite::getTexture()。
+如果属性不是一个bool值，将会有 setProperty(type) 和 getProperty() 方法。比如： void Sprite::setTexture(Texture2D\*) 和 Texture2D* CCSprite::getTexture()。
 
 * Director：负责切换scene
 * Scene：场景，包含子layer
