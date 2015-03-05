@@ -48,7 +48,7 @@ ignore 文件：
 
     git diff (--cached)
 
-查看历史，log：
+查看历史，log(-p表示diff，-2表示最近两个)：
 
     git log (-p -2)
 
@@ -68,3 +68,9 @@ git config：
     git commit --amend 修改最后一次提交，将当前staged的也加入到最后一次commit中
     git reset HEAD <file> 将已经staged的file撤销，变成untracked
     git checkout -- file 撤销对file的修改
+
+rebase:
+
+	git rebase branch
+	
+把当前分支接到brach分支后面，停留在当前分支的最后commit上，commits是嫁接；而git merge是合并到当前分支上，commits是按时间来算的。
