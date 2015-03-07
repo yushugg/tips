@@ -44,3 +44,31 @@
     必须保证a < b和b < a不能同时为true
 
     (a, b) 返回true，表示a排在b的前面
+    
+## STL实现
+
+1. vector总是不释放内存，使用vector<T>(s.begin(), s.end(), swap(s));，用s创建一个临时的向量，再和s交换，这时s原先占有的空间已属于临时对象，该语句执行后临时对象会被析构；  
+2. deque内存块不再被使用时会释放，内存可缩减  
+3. list，set，multiset，map，multimap总是释放内存
+
+### deque
+
+分段数组，如下图：
+![deque](deque.jpg "deque")
+除了维护分段数组，还要维护索引数组，可以随机访问，但是效率比vector要低；两端加入新元素，如果一端未满，则直接加入，如果一端已满，则创建新的分段数组，都不需要移动数组，所以效率高；但是删除中间的元素效率就比较低；内存有时候会释放。
+
+### vector
+
+reserve(n): 若向量容量大于等于n什么也不做，否则扩容到n，用于即将存放大数据；注意！迭代器会改变
+
+resize(n), resize(n, val): 如果n比现有size要小，则缩减移除多余的，否则，用val来填充，若val没指定就value-initialized
+
+容量不足的时候，创建更大的连续空间1.5-2倍，使用operator=来复制，然后删除释放原来的空间
+
+### map
+
+RB Tree
+
+### set
+
+RB Tree, unordered_set: hashset
