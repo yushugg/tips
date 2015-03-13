@@ -114,44 +114,49 @@ set autochdir
 
 "***************************************************************
 " set Vundle
-set rtp+=$HOME/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-" original repos on github
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+
+call vundle#begin() " start plugins
+Plugin 'gmarik/Vundle.vim'
+
+" plugin on github repos
 " github上的用户写的插件，使用这种用户名+repo名称的方式
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'Lokaltog/vim-easymotion'
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Bundle 'tpope/vim-rails.git'
+" Plugin 'https://github.com/scrooloose/nerdtree.git'
+" Plugin 'tpope/vim-fugitive'
 
 " vim-scripts repos
 " vimscripts的repo使用下面的格式，直接是插件名称
-Bundle 'taglist.vim'
-Bundle 'winmanager'
-Bundle 'OmniCppComplete'
-Bundle 'SuperTab'
-Bundle 'pythoncomplete'
-Bundle 'Pydiction'
-"Bundle 'minibufexplorerpp'
-Bundle 'EasyMotion'
-"Bundle 'pydoc.vim'
-" Bundle 'vimwiki'
+Plugin 'taglist.vim'
+Plugin 'molokai'
+Plugin 'The-NERD-Commenter'
+Plugin 'The-NERD-tree'
+Plugin 'ctrlp.vim'
+Plugin 'OmniCppComplete'
+Plugin 'pythoncomplete'
+Plugin 'MatchTag'
+Plugin 'matchit.zip'
 
 " non github reposo
 " 非github的插件，可以直接使用其git地址
-" Bundle 'git://git.wincent.com/command-t.git'
-" ...
+" Plugin 'git://git.wincent.com/command-t.git'
+
+" Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+
+call vundle#end() " end plugins
+filetype plugin indent on
 
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-" vundle主要就是上面这个四个命令，例如BundleInstall是全部重新安装，BundleInstall!则是更新
-" 一般安装插件的流程为，先BundleSearch一个插件，然后在列表中选中，按i安装
-" 安装完之后，在vimrc中，添加Bundle 'XXX'，使得bundle能够加载，这个插件，同时如果
+" :PluginList          - list configured bundles
+" :PluginInstall(!)    - install(update) bundles
+" :PluginSearch(!) foo - search(or refresh cache first) for foo
+" :PluginClean(!)      - confirm(or auto-approve) removal of unused bundles
+" vundle主要就是上面这个四个命令，例如PluginInstall是全部重新安装，PluginInstall!则是更新
+" 一般安装插件的流程为，先PluginSearch一个插件，然后在列表中选中，按i安装
+" 安装完之后，在vimrc中，添加Plugin 'XXX'，使得bundle能够加载，这个插件，同时如果
 " 需要配置这个插件，也是在vimrc中设置即可
 " see :h vundle for more details or wiki for FAQ
+" set Vundle
 "********************************************************************
 
 "*************************************************
@@ -262,7 +267,7 @@ if &filetype == 'c'
 exec "!gcc -Wl,-enable-auto-import % -g -o %<.exe"
 "c++程序
 elseif &filetype == 'cpp'
-exec "!g++ -Wl,-enable-auto-import % -g -o %<.exe"
+exec "!g++ -std=c++11 -Wl,-enable-auto-import % -g -o %<.exe"
 endif
 endfunc
 "结束定义CompileRun
