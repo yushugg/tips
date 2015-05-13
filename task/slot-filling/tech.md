@@ -23,8 +23,16 @@
 ## Feature extraction
 
 1. Normal features
+	* Lexical features
+		* Words between two entities, Window of k words to the left or right of Entity 1 and Entity 2
+		* Part-of-speech tags of these words
+	* Syntactic features
+		* Dependency path between two entities
+	* Entity self features
 2. n-gram
+	* Counts of uni-, bi-, tri- and four-grams between two entities or before or after one entity
 3. RNN
+	* Sequence between two entities
 
 ## Classification
 
