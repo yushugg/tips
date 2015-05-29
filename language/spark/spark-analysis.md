@@ -80,7 +80,7 @@ ShuffleDependency 左边的 RDD 中的 record 要求是 <key, value> 型的,经�
 
 - Hadoop MapReduce是sort-based，进入combine()和reduce()的records必须先sort
 - Spark是hash-based，通常使用HashMap来对shuffle的数据进行aggregate，要排序需要自己调用sortBykey()
-- Spark, map端划分数据、持久化数据称为shuffle write（**shuffle会自动持久化数据**）；reducer端读入数据、aggregate数据称为shuffle read
+- Spark, map端划分数据、持久化数据称为shuffle write（**shuffle会自动持久化some intermediate data**）；reducer端读入数据、aggregate数据称为shuffle read
 
 ### Shuffle write
 
