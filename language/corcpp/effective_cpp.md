@@ -78,3 +78,56 @@ enum hack更像是#define，因为取enum地址不合法，取#define地址也�
     std::size_t disks = tfs().numDisks();
 
 这些函数"内含static对象"在多线程中有不确定性，解决方法是**在程序单线程启动阶段，手工调用所有ref-returning函数**
+
+## 了解C++默默编写并调用哪些函数
+
+如果没有声明，编译器会自动声明一个copy构造函数、一个copy assignment操作符、一个析构函数，如果也没有声明任何构造函数，编译器还会声明一个default构造函数，所有这些函数都是public且inline，**只有当这些函数被调用的时候才会被编译器创建出来**
+
+    class Empty {
+    public:
+        Empty() { ... }
+        Empty(const Empty& rhs) { ... }
+        ~Empty() { ... }
+        Empty& operator=(const Empty& rhs) { ... }
+    }
+
+如果已经声明了一个构造函数，编译器就不会生成一个default构造函数
+
+## 若不想使用编译器自动生成的函数，就该明确拒绝
+
+1. 如果不想让copy构造函数或者copy assignment操作符被创建出来，可以声明为private
+2. 不过member函数和friend函数还是可以调用private函数，可以**不定义只声明**，这样一旦被调用就会出现链接错误(如iostream中的ios\_base,basic\_ios,sentry)
+3. 如果要将链接错误移到编译期间，可以构造一个base class，让copying为private，然后继承base
+
+## 为多态基类声明virtual析构函数
+
+1. 当class被用作多态base class，析构函数需要声明为virtual
+2. 当class不企图当作base class(class里面不含任何virtual函数)，就不需要声明析构函数为virtual
+3. 带有virtual函数的class维护一个vptr，会额外占用64bits(64位机器)
+4. 像STL中的class不带virtual析构函数，如果继承会导致未定义的行为，故此类没有virtual析构函数的不要继承
+5. **由于析构函数依次析构最深层到每个base class析构函数被调用，因此需要为base class的析构函数定义**
+
+## 别让异常逃离析构函数
+
+C++不禁止析构函数吐出异常，但是不鼓励如此，如果遇到DBConn这种需要close，又会跑出异常的：
+
+1. 调用abort，强迫结束程序
+        
+        DBConn::~DBConn() {
+            try { db.close(); }
+            catch (...) {
+                // record things
+                std::abort();
+            }
+        }
+
+2. 吞下异常，不推荐
+
+        DBConn::~DBConn() {
+            try { db.close(); }
+            catch (...) {
+                // record things
+            }
+        }
+
+3. 将close权利交给用户(提供close接口)，并在析构函数中使用强迫停止的老路
