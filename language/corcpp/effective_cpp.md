@@ -131,3 +131,69 @@ C++不禁止析构函数吐出异常，但是不鼓励如此，如果遇到DBCon
         }
 
 3. 将close权利交给用户(提供close接口)，并在析构函数中使用强迫停止的老路
+
+## 绝不在构造和析构过程中调用virtual函数
+
+在base class构造期间，virtual函数不是virtual函数，因为如果用到了多态，base class先于derived class被调用，此时对象类型是base class而不是derived class，**在编译期和运行期都会把对象视为base class类型**
+
+## 令operator=返回一个reference to \*this
+
+这样可以支持连续赋值
+
+    Widget& operator=(const Widget& rhs) {
+        ...
+        return *this;
+    }
+
+    Widget& operator+=(const Widget& rhs) {
+        ...
+        return *this;
+    }
+
+## 在operator=中处理“自我赋值”
+
+    Widget& Widget::operator=(const Widget& rhs) {
+        if (this == &rhs) return *this;
+
+        delete pb; // 不做自我赋值检测，就会出现把被赋值的对象也删除掉了
+        pb = new Bitmap(*rhs.pb);
+        return *this;
+    }
+
+上述代码如果new失败，会导致指针指向被删除的Bitmap，重新排列语句，可以改成如下，**在复制pb所指东西之前别删除pb**
+
+    Widget& Widget::operator=(const Widget& rhs) {
+        Bitmap* pOrig = pb;
+        pb = new Bitmap(*rhs.pb);
+        delete pOrig;
+        return *this;
+    }
+
+或者使用copy and swap
+
+    Widget& Widget::operator=(const Widget& rhs) {
+        Widget temp(rhs);
+        swap(temp);
+        return *this;
+    }
+
+## 复制对象时勿忘其每一个成分
+
+**当为derived class编写copying函数，必须复制其base class成分**，而这些成分往往是private的，无法直接访问，所以应该调用相应的base class的函数
+
+    PriorityCustomer::PriorityCustomer(const PriorityCustomer& rhs)
+        : Customer(rhs),
+          priority(rhs.priority) {
+        logCall("...");
+    }
+    
+    PriorityCustomer& PriorityCustomer::operator=(const PriorityCustomer& rhs) {
+        logCall("...");
+        Customer::operator=(rhs);
+        priority = rhs.priority;
+        return *this;
+    }
+
+1. 复制所有local成员变量
+2. 调用所有base classes内的适当的copying函数
+3. **令copy assignment调用copy构造函数是不合理的**，这就像试图构造一个已经存在的对象
