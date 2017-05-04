@@ -93,6 +93,11 @@ enum hack更像是#define，因为取enum地址不合法，取#define地址也�
 
 如果已经声明了一个构造函数，编译器就不会生成一个default构造函数
 
+### 构造函数的作用：
+
+1. 构造器
+2. 默认且隐含类型转换操作符，使用explicit可以避免不合时宜的类型转换，所有单参数的构造函数都必须使用
+
 ## 若不想使用编译器自动生成的函数，就该明确拒绝
 
 1. 如果不想让copy构造函数或者copy assignment操作符被创建出来，可以声明为private
@@ -197,3 +202,47 @@ C++不禁止析构函数吐出异常，但是不鼓励如此，如果遇到DBCon
 1. 复制所有local成员变量
 2. 调用所有base classes内的适当的copying函数
 3. **令copy assignment调用copy构造函数是不合理的**，这就像试图构造一个已经存在的对象
+
+## 以对象管理资源
+
+将资源放进对象内，当控制流离开函数，对象的析构函数会自动释放资源
+
+    void f() {
+        std::auto_ptr<Investment> pInv(createInvestment());
+        ...
+    }
+
+1. 获得资源后立刻放进管理对象
+2. 管理对象运用析构函数确保资源被释放
+3. 由于auto\_ptr被销毁时会自动删除它所指之物，所以**不能让auto\_ptr同时指向同一对象，这样同一个对象会被删除多次**，auto\_ptrs有个性质：通过copy构造函数或者copy assignment操作符复制它们，它们会变成null，**复制所得的指针取得资源的唯一拥有权**
+
+        std::auto_ptr<Investment> pInv1(createInvestment());
+        std::auto_ptr<Investment> pInv2(pInv1); // pInv2指向对象，pInv1设为null
+        pInv1 = pInv2; // pInv1指向对象，pInv2设为null
+
+4. 引用计数型智慧指针(RCSP,会有循环引用的问题)，tr1::shared\_ptr就是个RCSP，上述代码中使用shared\_ptr的话，pInv1和pInv2都将指向对象
+5. auto\_ptr和shared\_ptr**在析构函数内做的是delete不是delete[]**，所以不能用在数组上，替代品是vector，或者boost::scoped\_array,boost::shared\_array
+
+## 在资源管理类中小心copying行为
+
+对于资源管理类的copying行为，可以选择的处理方式为：
+
+1. 禁止复制，如对Lock这样的类
+2. 引用计数法，如shared\_ptr，可以自定义删除器(用在Lock上等)
+3. 复制底部资源，深度拷贝
+4. 转移底部资源的拥有权，如auto\_ptr
+
+## 在资源管理类中提供对原始资源的访问
+
+获取原始资源的访问：
+
+1. 显式转换：使用get成员函数，返回原始指针(的复件)
+2. 隐式转换：使用被重载后的指针取值操作符(operator->和operator\*)，可以用来直接取对象的数据和函数
+
+## 成对使用new和delete时要采取相同形式
+
+调用new时使用了[]，则必须调用delete[]；如果new没使用[]，则只需调用delete
+
+## 以独立语句将newed对象置入智能指针
+
+不应该直接在**函数的参数传递中newed对象放入智能指针，应该使用单独的语句**，因为函数的参数调用顺序是不确定的
