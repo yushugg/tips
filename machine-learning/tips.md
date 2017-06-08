@@ -88,3 +88,24 @@
 1. 如果Feature的数量很大，跟样本数量差不多，这时候选用LR或者是Linear Kernel的SVM
 2. 如果Feature的数量比较小，样本数量一般，不算大也不算小，选用SVM+Gaussian Kernel
 3. 如果Feature的数量比较小，而样本数量很多，需要手工添加一些feature变成第一种情况
+
+## Boosting和Bagging的异同
+
+### Boosting
+
+1. 从训练数据D中**不放回**的采样出d1，训练一个弱学习器C1
+2. 从训练数据**不放回**的采样出d2，并加上前面50%的错误结果，训练出C2
+3. 从训练数据采样出d3，并加上前面C1和C2错误的，训练出C3
+4. 结合所有的学习器，投票得出结果
+
+### Bagging
+
+1. 生成n个不同的bootstrap训练样本
+2. 为不同的样本训练出模型
+3. 平均每个预测结果或者投票
+
+### 区别
+
+1. 最关键的区别是Bagging允许放回，Boosting不允许放回
+2. Bagging可以减少Variance（过拟合），Boosting可以减少Bias和Variance，不过事实上Boosting会过拟合
+3. Boosting将弱分类器组合成强分类器，权重不一样，Bagging权重平均
