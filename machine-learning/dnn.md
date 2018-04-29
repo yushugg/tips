@@ -113,6 +113,42 @@ Adam相比RMSprop，增加了**偏差校正和动量**
 1. g(z) = 1 / (1 + e^-z)
 2. 值域在0-1之间，当z非常大时，g(z)趋近于1；当z非常小时，g(z)趋近于0，适合于分类，可表示概率
 
+## 过拟合
+
+### 防止过拟合的方法
+
+1. l1、l2正则化
+2. early stopping
+3. dropout
+4. soft weight sharing
+
+## dropout
+
+### 过程
+
+1. 随机删除网络中一定的隐藏层神经元，输入输出神经元保持不变
+2. 使用删除了隐藏节点的网络训练
+3. 重复上述1和2过程
+
+没有dropout
+
+![no-dropout-formula](no-dropout-formula.png)
+
+有dropout
+
+![with-dropout-formula](with-dropout-formula.png)
+
+### 作用解释
+
+1. 组合、取平均的作用：相当于训练了多个网络，取中和效果，有点像ensemble的方法bagging
+2. 减少神经元之间的复杂共适应关系：dropout导致两个神经元不一定每次都同时出现，权重更新不再依赖固有关系的隐含节点的共同作用，防止某些特征仅仅在其他特征下才有效果
+3. 性别在生物进化中的角色：性别的出现可以繁衍出适应新环境的变种，有效的阻止过拟合
+
+### tips
+
+1. 数据量小的时候dropout效果不好，数据量大的时候dropout效果好
+2. 有了dropout，训练速度会变慢
+
 ## NN
 
 隐藏层
