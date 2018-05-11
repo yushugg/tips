@@ -132,3 +132,28 @@
 1. sigmoid为指数运算，计算量大，ReLU计算量少，速度效率提高
 2. 对于深层网络sigmoid反向传播容易出现梯度消失，导致信息丢失
 3. ReLU会使部分神经元为0，使得网络稀疏，防止过拟合
+
+## 聚类算法
+
+### 相似性衡量
+
+1. 距离：Lp norm(l1-绝对值/曼哈顿距离，l2-欧式距离，……)
+2. 相似系数：夹角余弦，相关系数(不受原线性变换的影响，而且可以轻松地转换为距离，但其运算速度要比距离法慢得多，当维数很高的时候)
+3. 核函数K(x, y)：把数据从低纬映射到高维空间
+4. DTW(dynamic time warping)：可以计算两个不同长度的向量的距离，也可以对两对向量中不同时间段内的数据做匹配
+
+### 聚类算法
+
+1. Hierarchical methods：自下而上or自上而下，根据Linkage判断“类”的方法有最短距离法、最长距离法、中间距离法、类平均法等
+2. Partition-based methods：类内的点都足够近，类间的点都足够远；多适用于中等体量的数据集，数据集越大，越有可能陷入局部最小
+
+	- k-means++、intelligent k-means、genetic k-means：解决k-means对初始值的设置很敏感；
+	- k-medoids和k-medians：解决k-means对噪声和离群值非常敏感；
+	- k-modes：解决k-means只用于numerical类型数据，不适用于categorical类型数据；
+	- kernel k-means：解决k-means不能解决非凸（non-convex）数据；
+	- Spectral Clustering：先用Laplacian eigenmaps对数据进行降维(先将数据转换为邻接矩阵or相似性矩阵，再转换为Laplacian矩阵，再进行矩阵分解，把最小的K个特征向量排列在一起)，再使用k-means完成聚类，降维使得复杂度降低
+
+3. Density-based methods：k-means解决不了不规则形状的聚类，对噪声数据的处理也比较好，两个参数，一个是圈儿的最大半径，一个是一个圈儿里最少应容纳几个点，如DBSCAN
+4. Grid-based methods：原理就是将数据空间划分为网格单元，将数据对象集映射到网格单元中，并计算每个单元的密度，根据预设的阈值判断每个网格单元是否为高密度单元，由邻近的稠密单元组形成”类“，速度快，但对参数敏感，无法处理不规则数据，有维数灾难，如STING、CLIQUE
+5. Model-based methods：基于概率模型或者神经网络，以概率形式表现“类”，但执行效率不高，如GMM、SOM
+
