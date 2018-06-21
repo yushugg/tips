@@ -107,9 +107,11 @@
 ### 区别
 
 1. 最关键的区别是Bagging允许放回，Boosting不允许放回
-2. Bagging可以减少Variance（过拟合），Boosting可以减少Bias和Variance，不过事实上Boosting会过拟合
-3. Boosting将弱分类器组合成强分类器，权重不一样，Bagging权重平均
-4. Adaboost在迭代的时候改变样本的分布(提高错误预测样本的权重，减少正确预测样本的权重)，gradient boost不改变样本的分布在残差上学习
+2. Boosting将弱分类器组合成强分类器，权重不一样，Bagging权重平均
+3. Bagging的基模型相关性较低，整体模型的Bias和基模型的Bias近似(准确率)，而通过增加基模型的数量可以减少Variance(过拟合)，因此Bagging的基模型为强模型(准确率高易过拟合的模型)，降低子模型间的相关度可以起到减少整体模型的方差的效果
+4. Boosting的基模型相关性较高，若基模型不是弱模型(强模型易过拟合)，会导致整体模型Variance大(累积起来会过拟合)，因此Boosting的基模型为弱模型(准确率低但不容易过拟合)，通过增加基模型的数量来减少Bias(提升准确率)，但太多了容易过拟合
+5. Bagging的训练过程旨在降低Variance，而Boosting的训练过程旨在降低Bias
+6. Adaboost在迭代的时候改变样本的分布(提高错误预测样本的权重，减少正确预测样本的权重)，gradient boost不改变样本的分布在残差上学习
 
 ## 生成模型和判别模型
 
