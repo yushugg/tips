@@ -89,7 +89,7 @@
 2. 如果Feature的数量比较小，样本数量一般，不算大也不算小，选用SVM+Gaussian Kernel
 3. 如果Feature的数量比较小，而样本数量很多，需要手工添加一些feature变成第一种情况
 
-## Boosting和Bagging的异同
+## Ensemble learning
 
 ### Boosting
 
@@ -103,6 +103,10 @@
 1. 生成n个不同的bootstrap训练样本
 2. 为不同的样本训练出模型
 3. 平均每个预测结果或者投票
+
+### Stacking
+
+1. 训练的模型作为下一层模型的输入特征进行学习
 
 ### 区别
 
