@@ -28,5 +28,5 @@
 ### Limitations and Scope
 
 1. state很重要，这里只侧重讲decision-making
-2. 大部分强化学习方法是围绕value functions，但evolutionary methods不是，evolutionary methods更像是适应环境，不去与环境交互，适合policy空间小、policy易于探索、探索时间允许足够或agent无法完全感知环境的state
+2. 大部分强化学习方法是围绕value functions，但evolutionary methods不是，evolutionary methods更像是适应环境，不去与环境交互，**多次尝试**后得到每种policy的获胜概率，适合policy空间小、policy易于探索、探索时间允许足够或agent无法完全感知环境的state
 3. 有些类似evolutionary methods的方法，定义一些参数，以提高policy的perf来调参，它是和环境有交互的
